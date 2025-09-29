@@ -3,73 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>小遊戲：點擊加分</title>
+  <title>我的第一個 GitHub 網站</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      background-color: #f4f4f9;
       text-align: center;
       padding: 50px;
     }
     h1 {
       color: #333;
     }
-    #score {
-      font-size: 30px;
-      margin: 20px 0;
-      color: #444;
+    p {
+      font-size: 18px;
+      color: #666;
     }
-    #btn {
-      font-size: 20px;
-      padding: 15px 30px;
-      background-color: #ff6f61;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    #btn:hover {
-      background-color: #e74c3c;
-      transform: scale(1.05);
-    }
-    #reset {
+    .btn {
+      display: inline-block;
       margin-top: 20px;
+      padding: 10px 20px;
       font-size: 16px;
-      padding: 8px 16px;
-      background-color: #3498db;
       color: white;
-      border: none;
+      background-color: #007acc;
       border-radius: 8px;
-      cursor: pointer;
+      text-decoration: none;
     }
-    #reset:hover {
-      background-color: #2980b9;
+    .btn:hover {
+      background-color: #005b99;
     }
   </style>
 </head>
 <body>
-  <h1>🎮 點擊加分小遊戲 🎮</h1>
-  <p id="score">分數：0</p>
-  <button id="btn">點我 +1</button>
-  <br>
-  <button id="reset">重設分數</button>
-
-  <script>
-    let score = 0;
-    const scoreDisplay = document.getElementById("score");
-    const btn = document.getElementById("btn");
-    const reset = document.getElementById("reset");
-
-    btn.addEventListener("click", () => {
-      score++;
-      scoreDisplay.textContent = "分數：" + score;
-    });
-
-    reset.addEventListener("click", () => {
-      score = 0;
-      scoreDisplay.textContent = "分數：" + score;
-    });
-  </script>
+  <h1>🎉 歡迎來到我的 GitHub 網站！</h1>
+  <p>這是我用 GitHub Pages 建立的第一個網頁。</p>
+  <a href="https://github.com/" class="btn">前往 GitHub</a>
 </body>
 </html>
+
