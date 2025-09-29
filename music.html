@@ -5,18 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>音樂篇</title>
   <style>
-    body { font-family: "Microsoft JhengHei", Arial, sans-serif; background: #fafafa; padding: 20px; }
-    a { color: #007acc; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    section { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    body {
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+      background: #fafafa;
+      padding: 20px;
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    section {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #007acc;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+    }
+    /* 音樂播放器區塊 */
+    .music-box {
+      margin: 30px 0;
+      text-align: center;
+    }
+    iframe {
+      border-radius: 12px;
+      margin: 10px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
   </style>
 </head>
 <body>
   <a href="index.html">⬅️ 回首頁</a>
   <section>
     <h1>🎵 我的音樂篇</h1>
-    <p>這裡可以分享音樂清單、演唱會心得，甚至可以嵌入 YouTube 音樂影片。</p>
-    <p>範例：最近常聽的歌曲是《Shape of You》。</p>
+    <p>這裡分享我的最愛歌單與音樂影片。</p>
+
+    <!-- YouTube MV -->
+    <div class="music-box">
+      <h2>🎬 我的 YouTube 推薦</h2>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/JGwWNGJdvx8" 
+        title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+      <p>範例：Ed Sheeran - Shape of You</p>
+    </div>
+
+    <!-- Spotify 播放清單 -->
+    <div class="music-box">
+      <h2>🎧 我的 Spotify 播放清單</h2>
+      <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" 
+        width="100%" height="380" frameborder="0" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+      </iframe>
+      <p>範例：Spotify 精選熱門播放清單</p>
+    </div>
   </section>
 </body>
 </html>

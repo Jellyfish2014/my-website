@@ -5,18 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>旅遊篇</title>
   <style>
-    body { font-family: "Microsoft JhengHei", Arial, sans-serif; background: #fafafa; padding: 20px; }
-    a { color: #007acc; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    section { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    body {
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+      background: #fafafa;
+      padding: 20px;
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    section {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #007acc;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+    }
+    /* 相簿區塊 */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
   <a href="index.html">⬅️ 回首頁</a>
   <section>
     <h1>✈️ 我的旅遊篇</h1>
-    <p>這裡可以放置旅遊心得與照片。</p>
-    <p>範例：我曾去過京都，紅葉非常漂亮！</p>
+    <p>這裡分享我的旅遊心得與照片。</p>
+
+    <!-- 相簿展示 -->
+    <div class="gallery">
+      <img src="https://picsum.photos/id/1015/600/400" alt="旅遊照片1">
+      <img src="https://picsum.photos/id/1016/600/400" alt="旅遊照片2">
+      <img src="https://picsum.photos/id/1018/600/400" alt="旅遊照片3">
+      <img src="https://picsum.photos/id/1025/600/400" alt="旅遊照片4">
+      <img src="https://picsum.photos/id/1035/600/400" alt="旅遊照片5">
+      <img src="https://picsum.photos/id/1043/600/400" alt="旅遊照片6">
+    </div>
   </section>
 </body>
 </html>
