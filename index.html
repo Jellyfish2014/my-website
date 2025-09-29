@@ -3,40 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的第一個 GitHub 網站</title>
+  <title>我的生活網站</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
       background-color: #f4f4f9;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
       color: #333;
+      text-align: center;
     }
-    p {
-      font-size: 18px;
-      color: #666;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
+    header {
+      background: #007acc;
       color: white;
-      background-color: #007acc;
-      border-radius: 8px;
-      text-decoration: none;
+      padding: 20px;
     }
-    .btn:hover {
-      background-color: #005b99;
+    header h1 { margin: 0; }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+    section {
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    footer {
+      margin-top: 40px;
+      padding: 15px;
+      background: #333;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <h1>🎉 歡迎來到我的 GitHub 網站！</h1>
-  <p>這是我用 GitHub Pages 建立的第一個網頁。</p>
-  <a href="https://github.com/" class="btn">前往 GitHub</a>
+  <header>
+    <h1>🌟 我的生活網站 🌟</h1>
+    <nav>
+      <a href="travel.html">旅遊篇</a>
+      <a href="music.html">音樂篇</a>
+      <a href="essay.html">短文篇</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>👋 歡迎來到我的個人生活網站</h2>
+    <p>這裡紀錄了我的旅遊、音樂，以及日常短文。</p>
+    <p>請從上方選單選擇想看的內容！</p>
+  </section>
+
+  <footer>
+    <p>© 2025 我的生活網站 | Powered by GitHub Pages</p>
+  </footer>
 </body>
 </html>
+
 
