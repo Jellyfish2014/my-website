@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>我的生活網站 - 首頁</title>
+  <style>
+    :root{   
+       /* :root 中定义全局样式，确保它们应用于整个文档。 */
+      --gap:16px;
+      --box-radius:12px;
+      --box-bg:#ffffff;
+      --accent:#007acc;
+      --muted:#666;
+      --shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    *{box-sizing:border-box}
+    /*     * 是一個通用選擇器，意思是選擇頁面上的所有元素。 */
+    /* box-sizing 的兩種主要設定值：     content-box (預設值) 元素的 width 和 height 屬性值只適用於內容區域。  若要加上內邊距和邊框，它們的寬度會被增加到元素的總寬高之外。  例如，一個設定寬度為100px 的元素，如果加上10px 的padding 和5px 的border，它的總寬度會變成 \(100px+10px\times 2+5px\times 2=120px\)。  border-box 元素的 width 和 height 屬性值包含內容、內邊距和邊框。  例如，一個設定寬度為100px 的元素，若有10px 的padding 和5px 的border，內容區的寬度會被自動計算為 \(100px-(10px\times 2+5px\times 2)=80px\)，而元素的總寬度仍為100px。  */
+
+    body{
+      /* <body>{ } 代表了網頁的「主體內容」，也就是所有顯示在網頁上供使用者瀏覽的文字、圖片、影片等元素都放在這個區塊內 */
+      margin:0;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+      background: linear-gradient(180deg,#f6f8fb,#f4f6fa);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    header{
+      /* <header> 標籤表示網頁的頁首或標頭區塊，通常包含導言內容、標誌、導覽連結、搜尋表單等元素，並且可以包含多個標題。 */
+      text-align:center;
+      padding:36px 16px 10px;
+    }
+    header h1{
+      margin:0;
+      font-size:28px;
+      color:var(--accent);
+      letter-spacing:0.2px;
+    }
+    header p{
+      margin:10px 0 0;
+      color:var(--muted);
+    }
+
+    /* 容器：保持寬度並置中 */
+    .container{
+      /* 透過 <div> 標籤並加上 .container 的 class，可以將網頁內容組織成一個獨立的區塊。  */
+      max-width:1100px;
+      margin:28px auto;
+      padding:0 16px 48px;
+    }
+
+    /* grid 5 個平行方格 */
+    .grid{
+      display:grid;
+      gap:var(--gap);
+      /* 5 columns on wide screens, auto-fit fallback for responsiveness */
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    /* 當寬度不足時自動換行：手機、平板 */
+    @media (max-width:1100px){
+      .grid{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    @media (max-width:720px){
+      .grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width:440px){
+      .grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 可點擊方格：整個 a 都是塊級 */
+    .card-link{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      border-radius:var(--box-radius);
+      background:var(--box-bg);
+      padding:20px;
+      box-shadow:var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+      min-height:140px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      outline: none; /* focus 用自訂樣式 */
+    }
+
+    .card-link:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    .card-link:active{
+      transform: translateY(-2px) scale(.998);
+    }
+
+    /* keyboard focus 樣式，強調可及性 */
+    .card-link:focus{
+      box-shadow: 0 0 0 4px rgba(0,122,204,0.18), 0 12px 28px rgba(0,0,0,0.12);
+      transform: translateY(-6px);
+      border: 1px solid rgba(0,122,204,0.25);
+    }
+
+    .card-title{
+      font-size:18px;
+      font-weight:700;
+      color:#222;
+      margin:0 0 8px;
+    }
+    .card-desc{
+      font-size:13px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.4;
+    }
+
+    /* 小圖示（選用純 CSS 圓形） */
+    .icon{
+      width:56px;height:56px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:12px;
+      background:linear-gradient(135deg,var(--accent),#005b99);
+      color:white;font-weight:700;font-size:20px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>我的生活網站</h1>
+    <p>點擊任一方格或文字，前往次頁</p>
+  </header>
+
+  <main class="container" role="main">
+    <nav class="grid" aria-label="主選單">
+      <!-- 每個 <a> 包整個方格，整格都能點 -->
+      <a class="card-link" href="travel.html" aria-label="前往 旅遊篇">
+        <div class="icon" aria-hidden="true">✈️</div>
+        <h3 class="card-title">旅遊篇</h3>
+        <p class="card-desc">旅行相簿與遊記，記錄每一個風景與瞬間。</p>
+      </a>
+
+      <a class="card-link" href="music.html" aria-label="前往 音樂篇">
+        <div class="icon" aria-hidden="true">🎵</div>
+        <h3 class="card-title">音樂篇</h3>
+        <p class="card-desc">我的播放清單、演唱會心得與推薦歌曲。</p>
+      </a>
+
+      <a class="card-link" href="essay.html" aria-label="前往 短文篇">
+        <div class="icon" aria-hidden="true">📝</div>
+        <h3 class="card-title">短文篇</h3>
+        <p class="card-desc">生活小語、隨筆與日記。</p>
+      </a>
+
+      <a class="card-link" href="projects.html" aria-label="前往 小作品">
+        <div class="icon" aria-hidden="true">💡</div>
+        <h3 class="card-title">小作品</h3>
+        <p class="card-desc">一些網頁小作品、實驗或練習專案。</p>
+      </a>
+
+      <a class="card-link" href="about.html" aria-label="前往 關於我">
+        <div class="icon" aria-hidden="true">👋</div>
+        <h3 class="card-title">關於我</h3>
+        <p class="card-desc">自我介紹、聯絡方式與社群連結。</p>
+      </a>
+    </nav>
+  </main>
+</body>
+</html>

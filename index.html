@@ -1,10 +1,176 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant">                                            <!-- # zh 代表中文，Hant 代表繁體中文(Traditional Chinese) -->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的生活網站</title>
+  <title>Jellyfish的生活網站</title>
   <style>
+/* ********************************************************* */
+    :root{                                                      /* :root 中定义全局样式，确保它们应用于整个文档。 */
+      --gap:16px;
+      --box-radius:12px;                                        /* --gap是代表一個變數，  " -- " 是CSS中自訂屬性的名稱，這些變數可以在CSS 的其他地方被引用 */
+      --box-bg:#ffffff;
+      --accent:#007acc;
+      --muted:#666;
+      --shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    *{box-sizing:border-box}                                    /*     * 是一個通用選擇器，意思是選擇頁面上的所有元素。 */    
+                                                                /* box-sizing 的兩種主要設定值：     content-box (預設值) 元素的 width 和 height 屬性值只適用於內容區域。  若要加上內邊距和邊框，它們的寬度會被增加到元素的總寬高之外。  例如，一個設定寬度為100px 的元素，如果加上10px 的padding 和5px 的border，它的總寬度會變成 \(100px+10px\times 2+5px\times 2=120px\)。  border-box 元素的 width 和 height 屬性值包含內容、內邊距和邊框。  例如，一個設定寬度為100px 的元素，若有10px 的padding 和5px 的border，內容區的寬度會被自動計算為 \(100px-(10px\times 2+5px\times 2)=80px\)，而元素的總寬度仍為100px。  */
+    body{                                                       /* <body>{ } 代表了網頁的「主體內容」，也就是所有顯示在網頁上供使用者瀏覽的文字、圖片、影片等元素都放在這個區塊內 */
+      margin:0;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+      background: linear-gradient(180deg,#f6f8fb,#f4f6fa);
+      color:#222;
+      -webkit-font-smoothing:antialiased;                       /*  -webkit-font是一個與 WebKit 引擎相關的 CSS 前綴屬性，通常用於處理字體的樣式或渲染效果  */
+      -moz-osx-font-smoothing:grayscale;                        /*  -moz-osx 是一個專屬於 Mozilla Firefox 瀏覽器的 CSS 前綴，主要用於定義與 macOS 系統相關的樣式或行為  */
+    }
+
+    header{
+      /* <header> 標籤表示網頁的頁首或標頭區塊，通常包含導言內容、標誌、導覽連結、搜尋表單等元素，並且可以包含多個標題。 */
+      text-align:center;
+      padding:36px 16px 10px;
+    }
+    header h1{
+      margin:0;
+      font-size:28px;
+      color:var(--accent);
+      letter-spacing:0.2px;
+    }
+    header p{
+      margin:10px 0 0;
+      color:var(--muted);
+    }
+
+    /* 容器：保持寬度並置中 */
+    .container{
+      /* 透過 <div> 標籤並加上 .container 的 class，可以將網頁內容組織成一個獨立的區塊。  */
+      max-width:1100px;
+      margin:28px auto;
+      padding:0 16px 48px;
+    }
+
+    /* grid 5 個平行方格 */
+    .grid{
+      display:grid;
+      gap:var(--gap);
+      /* 5 columns on wide screens, auto-fit fallback for responsiveness */
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+      /* grid-template-columns: repeat(5, minmax(0, 1fr)) 在HTML 中定義了一個CSS Grid 佈局，表示有 5 個欄位，每個欄位可以從最小 0px 的寬度，擴展到 1fr（容器寬度的分數），並且會自動分配剩餘空間，讓所有欄位平均分配父容器的寬度。 
+      repeat(5, ...): 表示重複5 次後面的設定，也就是創建5 個欄位。
+      minmax(0, 1fr): 這是每個欄位的寬度設定。
+      0: 欄位的最小寬度為0px。
+      1fr: 欄位的最大寬度為1 個分數單位（fraction）。
+      當有足夠空間時，欄位會擴展到1fr。
+      1fr 的意思是，所有欄位會平均分配父容器的剩餘空間 */
+
+
+    /* 當寬度不足時自動換行：手機、平板 */
+    @media (max-width:1100px){                                  /*表示當瀏覽器的視窗寬度（max-width）小於或等於1100 像素時，就套用其後的大括號 {} 內的CSS 規則*/
+      .grid{
+        grid-template-columns: repeat(3, minmax(0, 1fr));      /*定義了一個網格，會產生 3 個寬度相等的欄位，並且每個欄位的最小寬度為 0 (沒有最小寬度限制)，而最大寬度則會佔滿可用空間的 1fr (分數)*/
+      }
+    }
+    @media (max-width:720px){
+      .grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width:440px){
+      .grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 可點擊方格：整個 a 都是塊級 */
+    .card-link{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      border-radius:var(--box-radius);
+      background:var(--box-bg);
+      padding:20px;
+      box-shadow:var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+      min-height:140px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      outline: none; /* focus 用自訂樣式 */
+    }
+
+    /* .card-link：: 這是一個CSS 選擇器，用於選取class 名稱為 card-link 的所有HTML 元素。
+    display: block;：: 將元素顯示為區塊元素，佔滿一整行。
+    text-decoration: none;：: 移除文字底線，例如連結的底線。
+    color: inherit;：: 讓文字顏色繼承父元素的 color 屬性。
+    border-radius: var(--box-radius);：: 設定圓角，var(--box-radius) 是CSS 變數，代表預設的圓角值。
+    background: var(--box-bg);：: 設定元素的背景，同樣使用CSS 變數 --box-bg。
+    padding: 20px;：: 為元素內部添加20px 的間距。
+    box-shadow: var(--shadow);：: 為元素添加陰影效果，使用CSS 變數 --shadow。
+    transition: transform .18s ease, box-shadow .18s ease;：: 當 transform 或 box-shadow 屬性改變時，會以0.18 秒的過渡時間，平滑地進行動畫效果。
+    min-height: 140px;：: 設定元素的最小高度為140 像素。
+    display: flex;：: 將元素設定為Flexbox 容器。
+    flex-direction: column;：: 使Flexbox 子元素沿垂直方向排列。
+    justify-content: center;：: 使內容在主軸(垂直方向) 上置中對齊。
+    align-items: center;：: 使內容在交叉軸(水平方向) 上置中對齊。
+    text-align: center;：: 使區塊內的文字置中對齊。
+    outline: none;：: 移除元素獲得焦點時的預設外框，以提供自訂的焦點樣式。 */
+
+    .card-link:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+      /* 對元素本身透過 translate 來做 Y 軸的位移，配合適當的 box-shadow 來創造一個懸浮的視覺效果 */
+
+    .card-link:active{
+      transform: translateY(-2px) scale(.998);
+    }
+/* active: 這是一個狀態偽類(pseudo-class)。 當使用者點擊元素（從按下到放開滑鼠按鈕之間）時觸發 */
+
+
+    /* keyboard focus 樣式，強調可及性 */
+    .card-link:focus{
+      box-shadow: 0 0 0 4px rgba(0,122,204,0.18), 0 12px 28px rgba(0,0,0,0.12);
+      transform: translateY(-6px);
+      border: 1px solid rgba(0,122,204,0.25);
+    }
+/* .link:focus{}: 這是一個使用者用鍵盤Tab 鍵或滑鼠點擊該元素時，將會套用後面大括號 {} 中的樣式規則 */
+/* 與 :focus 類似，還有其他常見的CSS 偽類用於不同的使用者互動狀態： 
+:hover：當滑鼠游標移到元素上時觸發。
+:active：當使用者點擊元素（從按下到放開滑鼠按鈕之間）時觸發。
+:link：連結尚未被訪問過時觸發。
+:visited：連結已被訪問過時觸發。 */
+
+    .card-title{
+      font-size:18px;
+      font-weight:700;
+      color:#222;
+      margin:0 0 8px;
+    }
+    .card-desc{
+      font-size:13px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.4;
+    }
+
+    /* 小圖示（選用純 CSS 圓形） */
+    .icon{
+      width:56px;height:56px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:12px;
+      background:linear-gradient(135deg,var(--accent),#005b99);
+      color:white;font-weight:700;font-size:20px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+    
+/* ********************************************************** */
+
+/* ----------------------------------------------------------     */
     body {
       margin: 0;
       font-family: "Microsoft JhengHei", Arial, sans-serif;
@@ -13,9 +179,9 @@
       text-align: center;
     }
     header {
-      background: #007acc;
+      background: #8e360d;
       color: white;
-      padding: 20px;
+      padding: 60px;
     }
     header h1 { margin: 0; }
     nav a {
@@ -28,7 +194,7 @@
     section {
       margin: 40px auto;
       max-width: 800px;
-      padding: 20px;
+      padding: 60px;
       background: white;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -39,26 +205,64 @@
       background: #333;
       color: white;
     }
+/* ------------------------------------------------------------------ */
   </style>
 </head>
 <body>
   <header>
-    <h1>🌟 我的生活網站 🌟</h1>
+    <h1>🌟 Jellyfish的生活網站 🌟</h1>
     <nav>
-      <a href="travel.html">旅遊篇</a>
-      <a href="music.html">音樂篇</a>
-      <a href="essay.html">短文篇</a>
-    </nav>
+      <a href="travel.html">旅遊</a>
+      <a href="music.html">聽歌</a>
+      <a href="essay.html">喳呼</a>
+      <a href="short.html">短影片</a>
+      <a href="game.html">小遊戲</a>
   </header>
 
-  <section>
-    <h2>👋 歡迎來到我的個人生活網站</h2>
-    <p>這裡紀錄了我的旅遊、音樂，以及日常短文。</p>
-    <p>請從上方選單選擇想看的內容！</p>
-  </section>
+  <!-- <section>
+    <h2>👋 歡迎來到Jellyfish的個人生活網站</h2>
+    <p>有旅遊、聽歌，喳呼、短影片以及小遊戲。</p>
+    <p>請從上方選單選擇！</p>
+  </section> -->
+
+  <main class="container" role="main">
+    <nav class="grid" aria-label="主選單">
+      <!-- 每個 <a> 包整個方格，整格都能點 -->
+      <a class="card-link" href="travel.html" aria-label="前往 旅遊篇">
+        <div class="icon" aria-hidden="true">✈️</div>
+        <h3 class="card-title">旅遊篇</h3>
+        <p class="card-desc">旅行相簿與遊記，記錄每一個風景與瞬間。</p>
+      </a>
+
+      <a class="card-link" href="music.html" aria-label="前往 音樂篇">
+        <div class="icon" aria-hidden="true">🎵</div>
+        <h3 class="card-title">音樂篇</h3>
+        <p class="card-desc">我的播放清單、演唱會心得與推薦歌曲。</p>
+      </a>
+
+      <a class="card-link" href="essay.html" aria-label="前往 短文篇">
+        <div class="icon" aria-hidden="true">📝</div>
+        <h3 class="card-title">短文篇</h3>
+        <p class="card-desc">生活小語、隨筆與日記。</p>
+      </a>
+
+      <a class="card-link" href="projects.html" aria-label="前往 小作品">
+        <div class="icon" aria-hidden="true">💡</div>
+        <h3 class="card-title">小作品</h3>
+        <p class="card-desc">一些網頁小作品、實驗或練習專案。</p>
+      </a>
+
+      <a class="card-link" href="about.html" aria-label="前往 關於我">
+        <div class="icon" aria-hidden="true">👋</div>
+        <h3 class="card-title">關於我</h3>
+        <p class="card-desc">自我介紹、聯絡方式與社群連結。</p>
+      </a>
+    </nav>
+  </main>
+
 
   <footer>
-    <p>© 2025 我的生活網站 | Powered by GitHub Pages</p>
+    <p>© Jellyfish的生活網站 | Powered by GitHub Pages</p>
   </footer>
 </body>
 </html>
