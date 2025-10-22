@@ -1,0 +1,125 @@
+:root{                                                      
+  --color1:#68b9eb;
+  --color2:#66e180;
+  --color3:black;
+  --color4:white;
+  --gap1:38px;
+  --box-radius1:18px;  
+  --box-bg1:white;  
+  --box-bg2:rgb(244, 249, 248);
+}
+
+body{    
+  font-family: "Microsoft JhengHei", Arial, sans-serif;                                              
+  text-align: center;
+}
+
+header{
+  background: #8e360d;
+  padding: 25px;
+}
+
+header h1{
+  margin:0 0 0px 0;
+  font-size:38px;
+  color:var(--color4);
+  letter-spacing:0.2px;
+}
+
+/* 右上角垂直排列按鈕容器 */
+.header-buttons {
+  /* position: absolute; */
+  position: fixed;  
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  gap: 12px; /* 按鈕間距 */
+}
+
+/* 按鈕外觀 */
+.header-buttons button {
+  background-color: white;
+  color: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: bold;
+}
+
+.header-buttons button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+ .container{
+  max-width:1100px;
+  margin:10px auto;
+  padding:0 16px 0px 16px;
+}
+
+ol{
+  font-size:20px;
+  font-weight:bold;
+  text-align: left;
+  /* color:#222; */
+  color:rgba(11, 13, 170, 0.852);
+  margin:0 0 8px;
+}
+
+li{
+  padding:0px 0px 6px 0px;
+}
+
+footer {
+  margin-top: 0px;
+  padding: 15px;
+  background: #333;
+  color: white;
+  font-weight:bold;
+  font-size:22px;
+} 
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+/* .nav-buttons {
+  margin: 20px;
+  text-align: center;
+} */
+
+/* .nav-buttons button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 15px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-buttons button:hover {
+  background-color: #45a049;
+} */
+
+/* .desc-1{
+  font-size:16px;
+  font-weight:550;
+  color:rgba(192, 21, 41, 0.852);
+  margin:0;
+  line-height:1.4;
+} */
+
+/* .icon{
+width:80px;height:80px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+margin-bottom:12px;
+background:linear-gradient(135deg,var(--accent),#a9d8f0);
+color:white;font-weight:700;font-size:20px;
+box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}   */

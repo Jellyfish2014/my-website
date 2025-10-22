@@ -1,0 +1,216 @@
+:root{                                                      
+  --color1:#68b9eb;
+  --color2:#66e180;
+  --color3:black;
+  --gap1:38px;
+  --box-radius1:18px;  
+  --box-bg1:white;  
+  --box-bg2:rgb(244, 249, 248);
+}
+
+body{    
+  font-family: "Microsoft JhengHei", Arial, sans-serif;                                              
+  text-align: center;
+}
+
+header{
+  background:rgb(6, 6, 92);
+  padding: 30px;
+}
+
+/* 右上角的導覽按鈕容器(兩個水平排列) */
+/* .header-buttons {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  margin: 0;
+  font-size: 15px;
+} */
+
+/* 右上角垂直排列按鈕容器 */
+.header-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  gap: 12px; /* 按鈕間距 */
+}
+
+/* 按鈕外觀 */
+.header-buttons button {
+  background-color: white;
+  color: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: bold;
+}
+
+.header-buttons button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+
+header h1{
+  margin:0 0 20px 0;
+  font-size:38px;
+  color:red;
+  letter-spacing:0.2px;
+}
+
+.under-h1{
+  margin: 0px 35px 0px 35px;      
+  font-size:25px; 
+  color: white;
+  text-decoration: none;
+  /* font-weight: bold; */
+  display: inline-block; /* 讓元素並列顯示，但可以設定寬高 */
+}
+
+.under-h1:hover { 
+  text-decoration: underline;
+  color: var(--color1);
+  transform: translate(-2px,-3px);
+  font-weight: bold;
+  /* transform: translateY(-6px); */
+  /* transform: translateX(-2px); */
+  /* box-shadow: 2px 2px 6px 2px RoyalBlue; */
+}
+
+ .container{
+  max-width:1100px;
+  margin:28px auto;
+  padding:0 16px 48px 16px;
+}
+
+img {
+    width: 70%;  /* 設置圖片寬度佔滿容器 */
+    /* height: 70%;  設置圖片高度佔滿容器 */
+    object-fit: cover;  /* 使用object-fit屬性調整圖片大小 */
+}
+
+.grid{
+  display:grid;
+  gap:var(--gap1);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width:1100px){                                 
+  .grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));      
+  }
+}
+
+@media (max-width:720px){
+  .grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width:440px){
+  .grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+.link-1{
+  margin-top: 50px;
+  display:block;
+  text-decoration:none;
+  /* color:inherit; */
+  border-radius:var(--box-radius1);
+  background:var(--box-bg2); 
+  padding:35px 30px 25px 30px;
+  /* box-shadow:var(--shadow); */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform .18s ease, box-shadow .18s ease;
+  min-height:180px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  /* outline: none;  */
+  outline: 1px solid rgb(0, 255, 234);
+}
+
+.link-1:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.link-1:hover .title-1{
+  text-decoration: underline;
+  color:rgba(192, 21, 41, 0.852);
+}
+
+/* .link-1:hover .desc-1{
+  text-decoration: underline;
+  color: rgb(106, 106, 244);
+} */
+
+.link-1:active{
+  transform: translateY(-2px) scale(.998);
+}
+
+.title-1{
+  font-size:25px;
+  font-weight:700;
+  color: blue;
+  /* color:rgba(192, 21, 41, 0.852); */
+  margin:0 0 8px;
+  padding-top: 10px;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 15px;
+  background: #333;
+  color: white;
+} 
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+/* .nav-buttons {
+  margin: 20px;
+  text-align: center;
+} */
+
+/* .nav-buttons button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 15px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-buttons button:hover {
+  background-color: #45a049;
+} */
+
+/* .desc-1{
+  font-size:16px;
+  font-weight:550;
+  color:rgba(192, 21, 41, 0.852);
+  margin:0;
+  line-height:1.4;
+} */
+
+/* .icon{
+width:80px;height:80px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+margin-bottom:12px;
+background:linear-gradient(135deg,var(--accent),#a9d8f0);
+color:white;font-weight:700;font-size:20px;
+box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}   */
