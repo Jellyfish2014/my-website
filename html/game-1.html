@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>五子棋（單人對電腦 AI）</title>
+<style>
+  body {
+    background: linear-gradient(#f9eecf, #d8c69c);
+    font-family: "Microsoft JhengHei", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+  h1 {
+    margin: 6px;
+    color: #4a3000;
+    text-shadow: 1px 1px #fff;
+    font-size: 5vw;
+  }
+  #gameCanvas {
+    background: #f2c77d;
+    border: 4px solid #4a3000;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    touch-action: manipulation;
+  }
+  #info {
+    margin-top: 8px;
+    font-size: 4vw;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 4vw;
+    background: #ffb700;
+    color: #4a3000;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  }
+  button:hover { background: #ffd84d; }
+</style>
+</head>
+<body>
+  <h1>🎯 五子棋（單人對電腦）</h1>
+  <canvas id="gameCanvas"></canvas>
+  <div id="info">玩家執黑棋，電腦執白棋</div>
+  <button id="restartBtn">重新開始</button>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const restartBtn = document.getElementById("restartBtn");
+
+let boardSize = 15;
+let board = [];
+let cellSize;
+let player = 1; // 1=黑(玩家)，2=白(AI)
+let gameOver = false;
+let scale = 1;
+
+function resizeCanvas() {
+  const width = Math.min(window.innerWidth * 0.9, 480);
+  canvas.width = width;
+  canvas.height = width;
+  scale = width / 480;
+  cellSize = canvas.width / (boardSize + 1);
+  drawBoard();
+  drawPieces();
+}
+window.addEventListener("resize", resizeCanvas);
+
+function initBoard() {
+  board = Array(boardSize).fill().map(() => Array(boardSize).fill(0));
+  gameOver = false;
+  player = 1;
+}
+
+function drawBoard() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle = "#333";
+  ctx.lineWidth = 1.2*scale;
+  for(let i=1;i<=boardSize;i++){
+    ctx.beginPath();
+    ctx.moveTo(cellSize, i*cellSize);
+    ctx.lineTo(boardSize*cellSize, i*cellSize);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(i*cellSize, cellSize);
+    ctx.lineTo(i*cellSize, boardSize*cellSize);
+    ctx.stroke();
+  }
+}
+
+function drawPieces(){
+  for(let y=0;y<boardSize;y++){
+    for(let x=0;x<boardSize;x++){
+      if(board[y][x]!==0){
+        drawStone(x,y,board[y][x]);
+      }
+    }
+  }
+}
+
+function drawStone(x,y,color){
+  const cx=(x+1)*cellSize, cy=(y+1)*cellSize;
+  const r=cellSize*0.4;
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,0,Math.PI*2);
+  const grad=ctx.createRadialGradient(cx-r/3,cy-r/3,r/5,cx,cy,r);
+  if(color===1){ grad.addColorStop(0,"#555"); grad.addColorStop(1,"#000"); }
+  else { grad.addColorStop(0,"#fff"); grad.addColorStop(1,"#ccc"); }
+  ctx.fillStyle=grad;
+  ctx.fill();
+  ctx.strokeStyle="#333";
+  ctx.stroke();
+}
+
+// 點擊事件（玩家落子）
+function handleClick(e){
+  if(gameOver || player!==1) return;
+  const rect=canvas.getBoundingClientRect();
+  const x=Math.round(( (e.clientX||e.touches[0].clientX)-rect.left)/cellSize-1);
+  const y=Math.round(( (e.clientY||e.touches[0].clientY)-rect.top)/cellSize-1);
+  if(x>=0&&x<boardSize&&y>=0&&y<boardSize&&board[y][x]===0){
+    board[y][x]=1;
+    drawStone(x,y,1);
+    if(checkWin(1)){
+      setTimeout(()=>alert("🏆 你贏了！"),100);
+      gameOver=true; return;
+    }
+    player=2;
+    setTimeout(aiMove,300);
+  }
+}
+canvas.addEventListener("click",handleClick);
+canvas.addEventListener("touchstart",handleClick);
+
+// 檢查勝利
+function checkWin(color){
+  const dirs=[[1,0],[0,1],[1,1],[1,-1]];
+  for(let y=0;y<boardSize;y++){
+    for(let x=0;x<boardSize;x++){
+      if(board[y][x]===color){
+        for(let [dx,dy] of dirs){
+          let count=1;
+          for(let i=1;i<5;i++){
+            let nx=x+dx*i, ny=y+dy*i;
+            if(nx<0||ny<0||nx>=boardSize||ny>=boardSize||board[ny][nx]!==color) break;
+            count++;
+          }
+          if(count>=5) return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+// 🧠 簡易 AI：找最佳空位（優先阻止玩家、其次進攻）
+function aiMove(){
+  if(gameOver) return;
+  let bestX=0,bestY=0,bestScore=-Infinity;
+  for(let y=0;y<boardSize;y++){
+    for(let x=0;x<boardSize;x++){
+      if(board[y][x]===0){
+        // AI 模擬自己的分數與玩家分數
+        let aiScore=getScore(x,y,2);
+        let playerScore=getScore(x,y,1);
+        let score=Math.max(aiScore,playerScore*1.1);
+        if(score>bestScore){ bestScore=score; bestX=x; bestY=y; }
+      }
+    }
+  }
+  board[bestY][bestX]=2;
+  drawStone(bestX,bestY,2);
+  if(checkWin(2)){
+    setTimeout(()=>alert("💻 電腦贏了！"),100);
+    gameOver=true; return;
+  }
+  player=1;
+}
+
+// 評分函數：計算一個點的潛在連線分數
+function getScore(x,y,color){
+  const dirs=[[1,0],[0,1],[1,1],[1,-1]];
+  let score=0;
+  for(let [dx,dy] of dirs){
+    let count=1;
+    for(let i=1;i<5;i++){
+      let nx=x+dx*i, ny=y+dy*i;
+      if(nx<0||ny<0||nx>=boardSize||ny>=boardSize||board[ny][nx]!==color) break;
+      count++;
+    }
+    for(let i=1;i<5;i++){
+      let nx=x-dx*i, ny=y-dy*i;
+      if(nx<0||ny<0||nx>=boardSize||ny>=boardSize||board[ny][nx]!==color) break;
+      count++;
+    }
+    score=Math.max(score,count);
+  }
+  return score;
+}
+
+// 重新開始
+restartBtn.addEventListener("click",()=>{
+  initBoard();
+  drawBoard();
+});
+initBoard();
+resizeCanvas();
+</script>
+</body>
+</html>

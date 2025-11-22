@@ -1,36 +1,57 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant">                                            
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的音樂 | 我的日常生活</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/script.js" defer></script>
+  <title>Jellyfish的生活網站</title>
+  <link rel="stylesheet" href="../css/music.css">
+  <script src="../js/music.js" defer></script> 
 </head>
+
 <body>
-  <header>
-    <h1>我的音樂</h1>
-    <nav><a href="../index.html">🏠 回首頁</a></nav>
+  <header class="page-header">
+    <h1>好聽的音樂</h1>
+
+    <!-- 🔹右上角垂直排列的導覽按鈕 -->
+    <div class="header-buttons">
+      <button onclick="goHome()">🏠 &nbsp;回首頁</button>
+      <button onclick="goBack()">⬅️ 回上一頁</button>
+    </div>
   </header>
 
-  <main class="grid-container">
-    <div class="grid-item">
-      <select onchange="goToPage(this)">
-        <option value="">選擇音樂主題</option>
-        <option value="#">我最愛的歌手</option>
-        <option value="#">學習樂器日記</option>
-        <option value="#">音樂創作</option>
-      </select>
-    </div>
-    <div class="grid-item" onclick="location.href='travel.html'">我的旅遊</div>
-    <div class="grid-item" onclick="location.href='articles.html'">我的文章</div>
-    <div class="grid-item" onclick="location.href='games.html'">我的小遊戲</div>
-    <div class="grid-item" onclick="location.href='videos.html'">我的短影片</div>
-    <div class="grid-item" onclick="location.href='work.html'">我的工作</div>
-  </main>
+  <main class="container">
+    <nav class="grid">
 
+      <a class="link-1" href="music-1.html">
+        <img src="../assets/picture/music-1.jpg" alt="找不到圖片">
+        <h3 class="title-1">華語歌曲</h3>        
+      </a>
+
+      <a class="link-1" href="music-2.html">
+        <img src="../assets/picture/music-2.jpg" alt="找不到圖片">
+        <h3 class="title-1">台語歌曲</h3>        
+      </a>
+
+      <a class="link-1" href="music-3.html">
+        <img src="../assets/picture/music-3.jpg" alt="找不到圖片">
+        <h3 class="title-1">輕柔音樂</h3>        
+      </a>
+
+      <a class="link-1" href="music-4.html">
+        <img src="../assets/picture/music-4.jpg" alt="找不到圖片">
+        <h3 class="title-1">DJ歌曲</h3>        
+      </a>
+
+      <a class="link-1" href="music-5.html">
+        <img src="../assets/picture/music-5.jpg" alt="找不到圖片">
+        <h3 class="title-1">西洋歌曲</h3>        
+      </a>
+
+    </nav>
+  </main>
+<!-- ---------------------------------------------------------------------- -->
   <footer>
-    <p>© 2025 我的日常生活</p>
+    <p>一些好聽的音樂</p>
   </footer>
 </body>
 </html>

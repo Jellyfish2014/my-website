@@ -18,15 +18,6 @@ header{
   padding: 30px;
 }
 
-/* 右上角的導覽按鈕容器(兩個水平排列) */
-/* .header-buttons {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  margin: 0;
-  font-size: 15px;
-} */
-
 /* 右上角垂直排列按鈕容器 */
 .header-buttons {
   position: absolute;
@@ -149,11 +140,6 @@ img {
   color:rgba(192, 21, 41, 0.852);
 }
 
-/* .link-1:hover .desc-1{
-  text-decoration: underline;
-  color: rgb(106, 106, 244);
-} */
-
 .link-1:active{
   transform: translateY(-2px) scale(.998);
 }
@@ -177,40 +163,3 @@ footer {
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
-/* .nav-buttons {
-  margin: 20px;
-  text-align: center;
-} */
-
-/* .nav-buttons button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 15px;
-  margin: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.nav-buttons button:hover {
-  background-color: #45a049;
-} */
-
-/* .desc-1{
-  font-size:16px;
-  font-weight:550;
-  color:rgba(192, 21, 41, 0.852);
-  margin:0;
-  line-height:1.4;
-} */
-
-/* .icon{
-width:80px;height:80px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;
-margin-bottom:12px;
-background:linear-gradient(135deg,var(--accent),#a9d8f0);
-color:white;font-weight:700;font-size:20px;
-box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-}   */

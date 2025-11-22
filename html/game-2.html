@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>🐹 打地鼠 Whack-a-Mole</title>
+<style>
+  body {
+    background: linear-gradient(#6bd1ff, #fff4b8);
+    font-family: "Microsoft JhengHei", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  h1 {
+    margin: 4px;
+    font-size: 5vw;
+    color: #4a3000;
+    text-shadow: 1px 1px #fff;
+  }
+  #gameCanvas {
+    background: #83d35e;
+    border: 4px solid #4a3000;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  #info {
+    margin-top: 6px;
+    font-size: 4vw;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 4vw;
+    background: #ffb700;
+    color: #4a3000;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  }
+  button:hover { background: #ffd84d; }
+</style>
+</head>
+<body>
+  <h1>🐹 打地鼠小遊戲</h1>
+  <canvas id="gameCanvas"></canvas>
+  <div id="info">分數：<span id="score">0</span>　剩餘時間：<span id="time">30</span> 秒</div>
+  <button id="restartBtn">重新開始</button>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const restartBtn = document.getElementById("restartBtn");
+const hitSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_3e7b5280f1.mp3");
+
+let holes = [], moles = [];
+let score = 0, timeLeft = 30, gameRunning = false, timerInterval;
+let scale = 1; // 尺寸縮放比例
+
+// 🟩 自動設定畫布大小
+function resizeCanvas() {
+  const baseWidth = 600;
+  const baseHeight = 400;
+  const width = Math.min(window.innerWidth * 0.9, 600);
+  const height = width * (baseHeight / baseWidth);
+  canvas.width = width;
+  canvas.height = height;
+  scale = width / baseWidth;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// 🎯 洞與地鼠類別
+class Mole {
+  constructor(x,y){
+    this.x = x; this.y = y;
+    this.visible = false; this.hit = false;
+    this.appearTime = 0; this.face = "😊";
+  }
+  appear(){
+    this.visible = true;
+    this.appearTime = Date.now();
+    this.hit = false;
+    this.face = "😊";
+  }
+  hide(){ this.visible = false; }
+  draw(){
+    if(!this.visible) return;
+    const t = (Date.now() - this.appearTime)/300;
+    const offset = Math.sin(Math.min(t,1)*Math.PI)*25*scale;
+    ctx.beginPath();
+    ctx.fillStyle = "#8b4513";
+    ctx.ellipse(this.x, this.y - offset, 45*scale, 35*scale, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.fillStyle = this.hit ? "#bbb" : "#ffcc66";
+    ctx.arc(this.x, this.y - 45*scale - offset, 35*scale, 0, Math.PI*2);
+    ctx.fill();
+    ctx.font = `${28*scale}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.face, this.x, this.y - 45*scale - offset);
+  }
+}
+
+function initGameObjects(){
+  holes = [];
+  moles = [];
+  const holeRows = 3, holeCols = 4;
+  for(let r=0;r<holeRows;r++){
+    for(let c=0;c<holeCols;c++){
+      let x = (100 + c*120)*scale;
+      let y = (100 + r*90)*scale;
+      holes.push({x,y});
+      moles.push(new Mole(x,y));
+    }
+  }
+}
+initGameObjects();
+
+// 🎨 畫洞
+function drawHoles(){
+  holes.forEach(h=>{
+    ctx.beginPath();
+    ctx.fillStyle="#3b2400";
+    ctx.ellipse(h.x, h.y+10*scale, 45*scale, 25*scale, 0, 0, Math.PI*2);
+    ctx.fill();
+  });
+}
+
+// 🔁 遊戲循環
+function gameLoop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawHoles();
+  moles.forEach(m=>m.draw());
+  if(gameRunning) requestAnimationFrame(gameLoop);
+}
+
+// 🐹 隨機地鼠出現
+function randomMoles(){
+  if(!gameRunning) return;
+  const mole = moles[Math.floor(Math.random()*moles.length)];
+  mole.appear();
+  setTimeout(()=>{ if(!mole.hit) mole.face="😠"; },700);
+  setTimeout(()=>mole.hide(),1200);
+  setTimeout(randomMoles, 500 + Math.random()*800);
+}
+
+// 🖱️ 點擊或觸控
+function handleClick(e){
+  if(!gameRunning) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.clientX || e.touches[0].clientX) - rect.left;
+  const y = (e.clientY || e.touches[0].clientY) - rect.top;
+  moles.forEach(m=>{
+    if(m.visible && !m.hit && Math.hypot(x-m.x, y-(m.y-45*scale)) < 35*scale){
+      m.hit = true;
+      m.face="💫";
+      hitSound.currentTime=0;
+      hitSound.play();
+      score++;
+      scoreDisplay.textContent = score;
+    }
+  });
+}
+canvas.addEventListener("click", handleClick);
+canvas.addEventListener("touchstart", handleClick);
+
+// 🚀 開始遊戲
+function startGame(){
+  score=0; timeLeft=30; gameRunning=true;
+  scoreDisplay.textContent=score;
+  timeDisplay.textContent=timeLeft;
+  initGameObjects();
+  randomMoles();
+  gameLoop();
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    timeDisplay.textContent=timeLeft;
+    if(timeLeft<=0){
+      clearInterval(timerInterval);
+      gameRunning=false;
+      ctx.fillStyle="rgba(0,0,0,0.6)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle="#fff";
+      ctx.font=`${36*scale}px Microsoft JhengHei`;
+      ctx.textAlign="center";
+      ctx.fillText(`時間到！你得到 ${score} 分 🎉`, canvas.width/2, canvas.height/2);
+    }
+  },1000);
+}
+restartBtn.addEventListener("click", startGame);
+startGame();
+</script>
+</body>
+</html>
+📱 自動調整原理說明

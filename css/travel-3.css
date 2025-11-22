@@ -1,0 +1,229 @@
+body{    
+  font-family: "Microsoft JhengHei", Arial, sans-serif;                                              
+  text-align: center;
+}
+
+header{
+  background: hwb(298 3% 66%);
+  padding: 25px;
+}
+
+header h1{
+  margin:0 0 0px 0;
+  font-size:38px;
+  color:white;
+  letter-spacing:0.2px;
+}
+
+/* 右上角垂直排列按鈕容器 */
+.header-buttons {
+  /* position: absolute; */
+  position: fixed;  
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  gap: 12px; /* 按鈕間距 */
+}
+
+/* 按鈕外觀 */
+.header-buttons button {
+  background-color: white;
+  color: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: bold;
+}
+
+.header-buttons button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+ .container{
+  max-width:1100px;
+  margin:10px auto;
+  padding:0 16px 0px 16px;
+}
+
+.trip-name {
+  width: 200px;
+  /* height: 30px; */
+  background-color: #f03636;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  /* margin: left 10px; */
+  font-size:25px;
+  font-weight:bold;
+  color:white;
+  letter-spacing:0.2px;
+}
+/* ------------------------------------------------- */
+.air-trip {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));  
+}
+
+/* @media (max-width:1100px){                                 
+  .air-trip{
+    grid-template-columns: repeat(2, minmax(0, 1fr));      
+  }
+} */
+
+@media (max-width:720px){
+  .air-trip{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width:440px){
+  .air-trip{
+    grid-template-columns: 1fr;
+  }
+}
+
+.flight {
+  margin-top: 10px;
+  display:block;
+  text-decoration:none;
+  border-radius:6px;
+  background:none; 
+  padding:10px;
+  /* box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform .18s ease, box-shadow .18s ease; */
+  min-height:180px;
+  display:flex;
+  flex-direction:column;
+  /* justify-content:center; */
+  align-items:center;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  color:blue;
+  /* outline: none;  */
+  outline: 1px solid rgb(0, 255, 234);
+}
+
+.flight img{
+  /* max-width: 100%; */
+  /* max-height: 100%; */
+  width:600px;
+  height:200px 
+}
+/* ----------------------------------------------------- */
+.accommodation {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));  
+}
+
+/* @media (max-width:1100px){                                 
+  .accommodation{
+    grid-template-columns: repeat(3, minmax(0, 1fr));      
+  }
+} */
+
+@media (max-width:720px){
+  .accommodation{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width:440px){
+  .accommodation{
+    grid-template-columns: 1fr;
+  }
+}
+
+.hotel {
+  margin-top: 10px;
+  display:block;
+  text-decoration:none;
+  border-radius:6px;
+  background:none; 
+  padding:10px;
+  /* box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform .18s ease, box-shadow .18s ease; */
+  min-height:180px;
+  display:flex;
+  flex-direction:column;
+  /* justify-content:center; */
+  align-items:center;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  color:blue;
+  /* outline: none;  */
+  outline: 1px solid rgb(0, 255, 234);
+}
+
+.hotel img{
+  /* max-width: 100%; */
+  /* max-height: 100%; */
+  width:600px;
+  height:200px 
+}
+/* --------------------------------------------------- */
+
+.sightseeing {
+  margin-top:10px;
+  font-size:20px;
+  font-weight:bold;
+  color:blue;
+  letter-spacing:0.2px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.picture-3{
+  display: flex;
+  flex-direction: row;
+}
+
+.picture-3 img{
+  max-width: 100%;
+  max-height: 100%;
+  width:350px;
+  height:262.5px; 
+  padding-left: 10px;
+}
+
+.picture-1 img{
+  max-width: 100%;
+  max-height: 100%;
+  /* width:350px;
+  height:262.5px; 
+  padding-left: 10px; */
+}
+
+footer {
+  margin-top: 0px;
+  padding: 15px;
+  background: #333;
+  color: white;
+  font-weight:bold;
+  font-size:22px;
+} 
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
+/* Flex 屬性
+display: flex;
+flex-direction: row;
+justify-content: center;	
+父元素成為 flex 容器，子元素水平排列並靠齊中間。
+
+Grid 屬性	
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+父元素成為 grid 容器，會產生兩欄，欄寬各佔一半，且有 $10$px 的間隙。 */
