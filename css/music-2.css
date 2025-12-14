@@ -59,12 +59,12 @@ img {
 .grid{
   display:grid;
   gap:45px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 @media (max-width:1100px){                                 
   .grid{
-    grid-template-columns: repeat(4, minmax(0, 1fr));      
+    grid-template-columns: repeat(5, minmax(0, 1fr));      
   }
 }
 
@@ -122,7 +122,7 @@ img {
 }
 
 .title-1{
-  font-size:25px;
+  font-size:18px;
   font-weight:700;
   color: blue;
   /* color:rgba(192, 21, 41, 0.852); */
