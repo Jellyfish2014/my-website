@@ -2,26 +2,33 @@
 <!DOCTYPE html>  <!-- 告訴瀏覽器這是一個 HTML5 文件（啟用現代 HTML/CSS/JS 行為與解析器）。 -->
 <html lang="zh-Hant">   <!-- HTML 根元素，lang="zh-Hant" 指示內容是繁體中文（對搜尋與讀屏器友好）。 -->
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8">     <!--  Meta是html中的一個屬性，出現在＜head＞中，主要提供搜尋引擎能更好的理解網站內容及資訊，meta tag能讓爬蟲更快速訴的了解網站，並檢索及建立索引。 -->
+<!-- 指定文件使用 UTF-8 編碼，確保中文與各種字元正確顯示。 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>🎾 打磚塊 - 三條命版本</title>
-<style>
+<!-- 控制行動裝置畫面縮放與寬度：以裝置寬度為 viewport，初始縮放 1，禁止使用者縮放（常用於行動遊戲避免畫面被意外縮放）。 -->
+
+<title>🎾 打磚塊 - 三條命版本</title>    <!-- 瀏覽器分頁標題，會顯示在標籤上。 -->
+
+<style>     /* 內嵌 CSS，控制整個頁面的外觀（下方會逐條說明 CSS 規則）。 */
+
   body {
-    background: linear-gradient(180deg, #a8d8ff, #fff0b3);
-    font-family: "Microsoft JhengHei", sans-serif;
+    background: linear-gradient(180deg, #a8d8ff, #fff0b3);  /*  設定從上到下的漸層背景色。 */
+    font-family: "Microsoft JhengHei", sans-serif;   /* 設定字型。 */
+
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
+    align-items: center;   
+    justify-content: center;   /* 使用 flexbox 將內容直列並置中（水平與垂直都置中）。 */
+    
+    height: 100vh;   /* 頁面高度佔滿視窗高度。 */
+    margin: 0;   /* 移除預設外邊距，避免頁面出現空白。 */
+    overflow: hidden;   /* 隱藏超出視窗的滾動內容（保持遊戲視窗乾淨）。 */
   }
   h1 {
     color: #004080;
-    font-size: 5vw;
-    text-shadow: 1px 1px #fff;
-    margin: 8px;
+    font-size: 5vw;  /*  標題顏色與用 vw（視窗寬度的百分比）做字型大小，可以跟螢幕寬度自動縮放（也就是響應式）。 */
+    text-shadow: 1px 1px #fff;   /* 給標題一點陰影讓它看起來浮起來。 */
+    margin: 8px;   /* 標題外距。 */
   }
   canvas {
     background: linear-gradient(#fffaf0, #ffe3b3);
@@ -290,8 +297,8 @@ restartBtn.addEventListener("click", ()=>{
   draw();
 });
 
-resizeCanvas();
-draw();
+resizeCanvas();   /* 先執行一次以設定畫布大小與初始化遊戲。 */
+draw();   /* 開始進入遊戲主迴圈（動畫進行）。 */
 </script>
 </body>
 </html>
