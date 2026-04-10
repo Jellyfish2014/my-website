@@ -54,12 +54,12 @@ header h1{
 .grid{
   display:grid;
   gap:38px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 @media (max-width:1100px){                                 
   .grid{
-    grid-template-columns: repeat(3, minmax(0, 1fr));      
+    grid-template-columns: repeat(2, minmax(0, 1fr));      
   }
 }
 
@@ -100,7 +100,7 @@ h2{
 }
 
 img {
-  width: 100%;  /* 設置圖片寬度佔滿容器 */
+  width: 80%;  /* 設置圖片寬度佔滿容器 */
   /* height: 70%;  設置圖片高度佔滿容器 */
   object-fit: cover;  /* 使用object-fit屬性調整圖片大小 */
 }
