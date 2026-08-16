@@ -1,304 +1,503 @@
-<!-- 區塊註解快捷鍵 (Block Comment)：Shift + Alt + A -->
-<!DOCTYPE html>  <!-- 告訴瀏覽器這是一個 HTML5 文件（啟用現代 HTML/CSS/JS 行為與解析器）。 -->
-<html lang="zh-Hant">   <!-- HTML 根元素，lang="zh-Hant" 指示內容是繁體中文（對搜尋與讀屏器友好）。 -->
+                                                                  <!-- /* 註解快捷鍵 (Block Comment)：Shift + Alt + A */ -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>                                                   <!-- /* 告訴瀏覽器這是一個 HTML5 文件（啟用現代 HTML/CSS/JS 行為與解析器） */ -->
+<html lang="zh-Hant">                                             <!-- /* HTML 根元素，lang="zh-Hant" 指示內容是繁體中文（對搜尋與讀屏器友好  */ -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- --> 
 <head>
-<meta charset="UTF-8">     <!--  Meta是html中的一個屬性，出現在＜head＞中，主要提供搜尋引擎能更好的理解網站內容及資訊，meta tag能讓爬蟲更快速訴的了解網站，並檢索及建立索引。 -->
-<!-- 指定文件使用 UTF-8 編碼，確保中文與各種字元正確顯示。 -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<!-- 控制行動裝置畫面縮放與寬度：以裝置寬度為 viewport，初始縮放 1，禁止使用者縮放（常用於行動遊戲避免畫面被意外縮放）。 -->
+<meta charset="UTF-8">                                            <!-- /*  指定文件使用 UTF-8 編碼，確保中文與各種字元正確顯示。Meta是html中的一個屬性，出現在＜head＞中，主要提供搜尋引擎能更好的理解網站內容及資訊，meta tag能讓爬蟲更快速訴的了解網站，並檢索及建立索引 */ -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">     <!-- /* 控制行動裝置畫面縮放與寬度：以裝置寬度為 viewport，初始縮放 1，禁止使用者縮放（常用於行動遊戲避免畫面被意外縮放） */ -->
+<title>🎾 打磚塊 - 三條命版本</title>                              <!-- /* <title> 是 HTML 裡標記「網頁標題」的元素，該元素並不會在頁面裡顯示，反而會顯示在瀏覽器的頁籤，或是儲存為「我的最愛」或「書籤」時的名稱 */ -->
+<!-- ---------------------------------------------------------------------------------------------------- --> 
+<style>                                                           /* 內嵌 CSS，控制整個頁面的外觀（下方會逐條說明 CSS 規則） */
+  body {                                                          /* 設定整個網頁的背景與版面 */
+    background: linear-gradient(180deg, #a8d8ff, #fff0b3);    /*  設定從上到下的漸層背景色 */
+    font-family: "Microsoft JhengHei", sans-serif;                /* 設定字型 */
 
-<title>🎾 打磚塊 - 三條命版本</title>    <!-- 瀏覽器分頁標題，會顯示在標籤上。 -->
-
-<style>     /* 內嵌 CSS，控制整個頁面的外觀（下方會逐條說明 CSS 規則）。 */
-
-  body {
-    background: linear-gradient(180deg, #a8d8ff, #fff0b3);  /*  設定從上到下的漸層背景色。 */
-    font-family: "Microsoft JhengHei", sans-serif;   /* 設定字型。 */
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;   
-    justify-content: center;   /* 使用 flexbox 將內容直列並置中（水平與垂直都置中）。 */
+    display: flex;                                                /* 彈性排版，啟動 flexbox 排版模式 */
+    flex-direction: column;                                       /* 內容垂直排列 */
+    align-items: center;                                          /* 水平置中對齊 */
+    justify-content: center;                                      /* 垂直置中 */
     
-    height: 100vh;   /* 頁面高度佔滿視窗高度。 */
-    margin: 0;   /* 移除預設外邊距，避免頁面出現空白。 */
-    overflow: hidden;   /* 隱藏超出視窗的滾動內容（保持遊戲視窗乾淨）。 */
+    min-height: 100vh;                                            /* 版面高度 = 螢幕高度 */
+    margin: 0;                                                    /* 去除預設外邊距，避免頁面出現空白。 */
+    overflow: hidden;                                             /* 隱藏超出視窗的滾動內容（保持遊戲視窗乾淨）。 */
+  }                                                               /* 結束 body 樣式 */
+  h1 {                                                            /* 標題樣式 */
+    color: #004080;                                             /* 標題字體顏色為深藍 */
+    font-size: 3.5vh;                                             /* 標題字體大小為螢幕高度的 5%，vh（視窗高度的百分比）做字型大小，(螢幕寬度為vw)，可以跟螢幕高(或寬)度自動縮放（也就是響應式） */
+    text-shadow: 1px 1px #fff;                                  /* 加上白色陰影讓字體更立體，給標題一點陰影讓它看起來浮起來 */
+    /* margin: 8px;                                                  標題外邊距 */
+    margin: 1vh;                                                  /* 標題外邊距 */    
+  }                                                               /* 結束 h1 樣式 */
+  canvas {                                                        /* Canvas 畫布的樣式設定 */
+    background: linear-gradient(#fffaf0, #ffe3b3);            /* 背景為柔和的米色漸層 */
+    border: 3px solid #004080;                                  /* 外框為深藍色線條 */
+    border-radius: 12px;                                          /* 邊角圓弧 */   
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);                     /* 增加陰影讓畫布更有立體感 */
+    touch-action: manipulation;                                   /* 允許觸控操作（手機控制用） */
+  } 
+  #info {                                                         /* 遊戲分數與生命顯示區塊樣式 */  
+    /* margin-top: 8px; */
+    margin-top: 1.5vh;    
+    font-size: 3vh;                                               /* 文字大小根據螢幕自動縮放 */  
+    font-weight: bold;
+    color: #004080;                                             /* 顏色為深藍 */  
+  }    
+  .button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; /* 從右邊開始排列 */
+    gap: 10px; /* 按鈕之間的間距 */
   }
-  h1 {
-    color: #004080;
-    font-size: 5vw;  /*  標題顏色與用 vw（視窗寬度的百分比）做字型大小，可以跟螢幕寬度自動縮放（也就是響應式）。 */
-    text-shadow: 1px 1px #fff;   /* 給標題一點陰影讓它看起來浮起來。 */
-    margin: 8px;   /* 標題外距。 */
-  }
-  canvas {
-    background: linear-gradient(#fffaf0, #ffe3b3);
-    border: 4px solid #004080;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    touch-action: manipulation;
-  }
-  #info {
-    margin-top: 10px;
-    font-size: 4vw;
-    color: #004080;
-  }
-  button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    font-size: 4vw;
-    border: none;
-    border-radius: 10px;
-    background: #ffb700;
-    color: #4a3000;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-  }
-  button:hover { background: #ffd84d; }
-</style>
-</head>
-<body>
-  <h1>🎾 打磚塊（3條命）</h1>
-  <canvas id="gameCanvas"></canvas>
-  <div id="info">
-    分數：<span id="score">0</span>　
-    生命：<span id="lives">❤️❤️❤️</span>
+  #pause {                                                        /* "重新開始"設定按鈕樣式 */
+    /* margin-top: 8px;  
+    margin-bottom: 8px;    */
+    margin-top: 1vh;  
+    margin-bottom: 1vh;  
+    /* margin-left: 3vw;   */
+    padding: 0.5vh 20px;                                            /* 內邊距上下 8px、左右 16px */  
+    /* padding: 8px 16px; */    
+    font-size: 3vh;                                               /* 按鈕文字自動縮放 */  
+    font-weight: bold;
+    border: none;                                                 /* 去掉外框 */  
+    border-radius: 10px;                                          /* 按鈕圓角 */  
+    background: #fdcb4a;                                        /* 黃橘色背景 */  
+    color: #4a3000;                                             /* 字體顏色為深褐色 */  
+    cursor: pointer;                                              /* 滑鼠移上顯示手指形狀 */  
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);                      /* 陰影讓按鈕更立體 */  
+  }                                                               /* 結束按鈕樣式 */                                                               
+  #restartBtn {                                                        /* "重新開始"設定按鈕樣式 */
+    /* margin-top: 8px;  
+    margin-bottom: 8px;    */
+    margin-top: 1vh;  
+    margin-bottom: 1vh;  
+    margin-left: 3vw;  
+    padding: 0.5vh 35px;                                            /* 內邊距上下 8px、左右 16px */  
+    /* padding: 8px 16px; */    
+    font-size: 3vh;                                               /* 按鈕文字自動縮放 */  
+    font-weight: bold;
+    border: none;                                                 /* 去掉外框 */  
+    border-radius: 10px;                                          /* 按鈕圓角 */  
+    background: #ffb700;                                        /* 黃橘色背景 */  
+    color: #4a3000;                                             /* 字體顏色為深褐色 */  
+    cursor: pointer;                                              /* 滑鼠移上顯示手指形狀 */  
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);                      /* 陰影讓按鈕更立體 */  
+  }                                                               /* 結束按鈕樣式 */
+  button:hover { background: #ffd84d; }                         /* 滑鼠移上去時變亮黃色 */ 
+</style>                                                          <!-- /* 結束樣式區塊 */  -->
+</head>                                                           <!-- /* 結束 head 標籤 */ 
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<body>                                                            <!-- /* 主內容開始 */   -->
+  <!-- <div id="width-display" style="position: fixed; top: 10px; left: 10px; background: black; color: white; padding: 2px; z-index: 9999;"></div>    這句程式碼中沒有設定 font-size 屬性，因此它的字體大小會直接採用瀏覽器的預設值，在絕大多數瀏覽器中，這個預設大小是 16px。 -->
+  <h1>🎾 打磚塊（3條命）</h1>                                      <!-- /* 網頁上的遊戲標題 */  -->
+  <canvas id="gameCanvas"></canvas>                               <!-- /* 建立畫布（遊戲主要畫面） */  -->
+  <div id="info">                                                 <!-- /* 包含分數與生命的區塊 */  -->
+    分數：<span id="score">0</span>　                              <!-- /* 顯示分數初始值 0 */  -->
+    生命：<span id="lives">❤️❤️❤️</span>                         <!-- /* 顯示三顆愛心代表三條命 */  -->
+  </div>                                                          <!-- /* 結束 info 區塊 */  -->
+  <div class="button-row">
+    <button id="pause">暫停</button>                        <!-- /* 一個按鈕用來重開遊戲 */  -->
+    <button id="restartBtn">重新開始</button>
   </div>
-  <button id="restartBtn">重新開始</button>
 
-<script>
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-const scoreDisplay = document.getElementById("score");
-const livesDisplay = document.getElementById("lives");
-const restartBtn = document.getElementById("restartBtn");
+<script>                                                          /* 開始 JavaScript 區段 */
+const canvas = document.getElementById("gameCanvas");             /* 取得 <canvas> 元素，作為主要遊戲畫面 */
+const ctx = canvas.getContext("2d");                              /* 取得 2D 繪圖上下文 (context)，用於在畫布上繪製圖形 */
+const winDisplay = document.getElementById("win");   
+const scoreDisplay = document.getElementById("score");            /* 取得分數顯示用的 <span> */
+const livesDisplay = document.getElementById("lives");            /* 取得生命顯示區塊 */
+const pause = document.getElementById("pause");
+const restartBtn = document.getElementById("restartBtn");         /* 取得「重新開始」按鈕 */
 
-let ballRadius = 8;
-let paddleHeight = 12;
-let paddleWidth = 80;
-let brickRowCount = 5;
-let brickColumnCount = 8;
-let brickPadding = 10;
-let brickOffsetTop = 40;
-let brickOffsetLeft = 25;
-let brickWidth, brickHeight;
+let brickOffsetTop = 12;                                          /* 第一排磚塊離畫布上緣的距離 */
+let brickOffsetLeft = 5;                                         /* 磚塊離畫布左邊的距離 */
+let brickPadding = 5;                                            /* 磚塊之間的間距 */
+let brickRowCount = 5;                                            /* 磚塊行數（橫向 5 行） */
+let brickColumnCount = 8;                                         /* 磚塊列數（縱向 8 列） */
+let brickHeight = 18;    
+let brickWidth;                                                  /* 宣告變數（磚塊寬、高之後由函數計算） */
 
-let x, y, dx, dy, paddleX;
-let score = 0;
-let lives = 3;
-let bricks = [];
-let rightPressed = false;
-let leftPressed = false;
-let scale = 1;
-let gameRunning = true;
-let ballActive = true;
+let ballRadius = 8;                                               /* 定義球的半徑 */
 
-function resizeCanvas() {
-  const width = Math.min(window.innerWidth * 0.9, 480);
-  const height = width * 1.3;
-  canvas.width = width;
-  canvas.height = height;
-  scale = width / 480;
-  brickWidth = (width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;
-  brickHeight = 20 * scale;
-  ballRadius = 8 * scale;
-  paddleWidth = 80 * scale;
-  paddleHeight = 12 * scale;
-  initGame();
-}
-window.addEventListener('resize', resizeCanvas);
+let paddleHeight = 12;                                            /* 球拍高度 */
+let paddleWidth = 70;                                             /* 球拍寬度 */
 
-function initBricks() {
-  bricks = [];
-  for(let c=0; c<brickColumnCount; c++){
-    bricks[c] = [];
-    for(let r=0; r<brickRowCount; r++){
-      bricks[c][r] = { x:0, y:0, status:1 };
+let widthin_large = 400;      
+let widthout_large = widthin_large / 0.9
+let heightin_large = widthout_large * 1.2;  
+let heightout_large = heightin_large * 1.37;     
+
+let x, y, dx, dy, paddleX, size, scale_paddle;   
+let score = 0;                                                    /* 分數初始值 0 */
+let lives = 3;                                                    /* 玩家生命初始值為 3 */
+let bricks = [];                                                  /* 儲存所有磚塊狀態的陣列 */
+let rightPressed = false;                                         /* 右鍵是否按下 */
+let leftPressed = false;                                          /* 左鍵是否按下 */
+let scale = 1;                                                    /* 遊戲畫面縮放比例（自動根據螢幕大小調整） */
+let gameRunning = true;                                           /* 控制遊戲是否正在進行 */
+let ballActive = true;                                            /* 控制球是否正在移動中（用於暫停後重新發球） */
+let isDragging = false;                                           /* 宣告一個布林值變數 isDragging，用來記錄玩家現在「是不是正在拖曳擋板」。預設值為 false。 */
+let win_status = false;
+// // ------------------------------
+function  initialize() {                                         
+  if (window.innerHeight > heightout_large* 0.88) {  
+    size = 'large'
+    scale = 1;  
+    canvas.width = widthin_large;                                          
+    canvas.height = heightin_large;                            
+  } else {  
+    size = 'small'
+    scale = 0.65; 
+    canvas.height = heightin_large * scale;                                            
+    canvas.width = widthin_large * scale;                                          
+    }                                     
+
+  x = canvas.width / 2;                                           
+  y = canvas.height - 30*scale;                                   
+  dx = 3 * scale;                                                 
+  dy = -3 * scale;                                                
+
+  brickOffsetTop = brickOffsetTop * scale;  
+  brickOffsetLeft = brickOffsetLeft * scale;  
+  brickPadding = brickPadding * scale; 
+
+  brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      
+  brickHeight = brickHeight * scale;       
+
+  ballRadius = ballRadius * scale;
+
+  paddleWidth = paddleWidth * scale;                                       
+  paddleHeight = paddleHeight * scale;   
+
+  paddleX = (canvas.width - paddleWidth) / 2;                       
+                             
+  score = 0;                                                      
+  lives = 3;                                                      
+  scoreDisplay.textContent = score;                               
+  livesDisplay.textContent = "❤️".repeat(lives);           
+  gameRunning = true;                          
+  // gameRunning = false;   
+  bricks = [];                                                    /* 清空並建立一個名為 bricks 的空陣列 */
+  for(let c=0; c<brickColumnCount; c++){                          /* 外層迴圈：每一列磚塊 */
+    bricks[c] = [];                                               /* 每列建立一個子陣列 */
+    for(let r=0; r<brickRowCount; r++){                           /* 內層迴圈：每行磚塊 。 let r=0;：初始化。宣告一個變數 r（通常代表 row / 列）並將它設為 0。這代表迴圈從第 0 行開始。r<brickRowCount;：執行條件。只要 r 小於 brickRowCount（磚塊的總行數），迴圈就會持續執行。r++：遞增。每跑完一次迴圈，r 的數值就會增加 1（相當於 \(r = r + 1\)）。*/
+      bricks[c][r] = { x:0, y:0, status:1 };                      /* 為每一塊磚建立物件（位置與是否存在）。 bricks[c][r]：代表二維陣列 bricks 中，第 c 行（column）第 r 列（row）的磚塊。x: 0, y: 0：設定該磚塊在遊戲畫面的繪製座標（通常會在迴圈後續計算實際像素位置）。status: 1：設定磚塊的狀態為「存在／可見」（通常 1 代表活著，當球擊中磚塊時會改為 0 來讓磚塊消失）。 */
+    }                                                             /* 結束內層迴圈 */
+  }                                                               /* 結束外層迴圈 */
+}                                                                 /* 結束  initsizeCanvas 函式 */
+// -------------------------
+function resizeCanvas() {                                         /* 定義一個函式，根據螢幕大小調整畫布尺寸 */ 
+  if (size == 'large'){
+    if (window.innerHeight > heightout_large * 0.88) {  
+      scale = 1;   
+      canvas.width = widthin_large;                                           
+      canvas.height = heightin_large;    
+      x = x;                                   
+      y = y;                                 
+      dx = dx;                                                 
+      dy = dy;    
+      brickPadding = brickPadding;  
+      brickOffsetTop = brickOffsetTop; 
+      brickOffsetLeft = brickOffsetLeft; 
+      brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      /* 根據畫布寬度自動計算每個磚塊的寬度 */
+      brickHeight = brickHeight;                                       /* 磚塊高度隨比例縮放 */
+      ballRadius = ballRadius;                                         /* 球的大小隨比例縮放 */
+
+      paddleWidth = paddleWidth;                                       
+      paddleHeight = paddleHeight;                                       
+      paddleX = paddleX;
+      // size = 'large' 
+
+    } else {  
+        scale = 0.65
+        canvas.width = widthin_large * scale;        
+        canvas.height = heightin_large * scale;          
+        x = x* scale;                                   
+        y = y * scale;                                 
+        dx = dx * scale;                                                 
+        dy = dy * scale;    
+        brickPadding = brickPadding * scale;  
+        brickOffsetTop = brickOffsetTop * scale; 
+        brickOffsetLeft = brickOffsetLeft * scale; 
+        brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      /* 根據畫布寬度自動計算每個磚塊的寬度 */
+        brickHeight = brickHeight * scale;                                       /* 磚塊高度隨比例縮放 */
+        ballRadius = ballRadius * scale;                                         /* 球的大小隨比例縮放 */
+
+        paddleWidth = paddleWidth * scale;                                       
+        paddleHeight = paddleHeight * scale;                                       
+
+        paddleX = (paddleX + paddleWidth/scale/2)*scale-(paddleWidth/2);    
+        size = "small"    
+      } 
+  } 
+  if (size == 'small'){
+    if (window.innerHeight <= heightout_large * 0.88) {  
+        scale = 1;   
+        canvas.width = widthin_large * 0.65;                                           
+        canvas.height = heightin_large * 0.65;    
+        x = x;                                   
+        y = y;                                 
+        dx = dx;                                                 
+        dy = dy;    
+        brickPadding = brickPadding;  
+        brickOffsetTop = brickOffsetTop; 
+        brickOffsetLeft = rickOffsetLeft; 
+        brickWidth = brickWidth;      
+        brickHeight = brickHeight;                                       /* 磚塊高度隨比例縮放 */
+        ballRadius = ballRadius;                                         /* 球的大小隨比例縮放 */
+
+        paddleWidth = paddleWidth;                                       
+        paddleHeight = paddleHeight;                                       
+        paddleX = paddleX;     
+        // size = "small" 
+
+    } else {  
+        scale = 1/0.65
+        canvas.width = widthin_large *  1;        
+        canvas.height = heightin_large * 1;          
+        x = x * scale;                                   
+        y = y * scale;                                 
+        dx = dx * scale;                                                 
+        dy = dy * scale;    
+        brickPadding = brickPadding * scale;  
+        brickOffsetTop = brickOffsetTop * scale; 
+        brickOffsetLeft = brickOffsetLeft * scale; 
+        brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      /* 根據畫布寬度自動計算每個磚塊的寬度 */
+        brickHeight = brickHeight * scale;                                       /* 磚塊高度隨比例縮放 */
+        ballRadius = ballRadius * scale;                                         /* 球的大小隨比例縮放 */
+
+        paddleWidth = paddleWidth * scale;                                       
+        paddleHeight = paddleHeight * scale;                                       
+
+        paddleX = (paddleX + paddleWidth/scale/2)*scale-(paddleWidth/2); 
+        size = 'large'
+      } 
     }
+  }  
+                                                               
+// -----------------------------
+function play() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);                 /*清除整個 HTML5 Canvas 畫布上的所有內容，使其恢復為完全透明的初始狀態。*/
+  drawBricks();                                                  /* 繪出磚塊。 */
+  drawBall();                                                    /* 繪出球。 */
+  drawPaddle();                                                  /* 繪出球拍。 */
+  collisionDetection();                                          /* 檢查碰撞。 */
+  if(win_status){  
+    if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '2.6vh Arial'};
+    ctx.fillStyle = '#333333';
+    ctx.fillText('🎉 你贏了！恭喜破關！', canvas.width/8, canvas.height/2);     
   }
-}
-
-function initGame() {
-  x = canvas.width / 2;
-  y = canvas.height - 30*scale;
-  dx = 3 * scale;
-  dy = -3 * scale;
-  paddleX = (canvas.width - paddleWidth) / 2;
-  score = 0;
-  lives = 3;
-  scoreDisplay.textContent = score;
-  updateLives();
-  gameRunning = true;
-  initBricks();
-}
-initGame();
-
-function updateLives() {
-  livesDisplay.textContent = "❤️".repeat(lives);
-}
-
-// --- 繪圖 ---
-function drawBricks() {
-  for(let c=0; c<brickColumnCount; c++){
-    for(let r=0; r<brickRowCount; r++){
-      if(bricks[c][r].status === 1){
-        const brickX = brickOffsetLeft + c*(brickWidth + brickPadding);
-        const brickY = brickOffsetTop + r*(brickHeight + brickPadding);
-        bricks[c][r].x = brickX;
-        bricks[c][r].y = brickY;
-        const grad = ctx.createLinearGradient(brickX, brickY, brickX, brickY+brickHeight);
-        grad.addColorStop(0, "#ff9966");
-        grad.addColorStop(1, "#ff3300");
-        ctx.fillStyle = grad;
-        ctx.strokeStyle = "#b32d00";
-        ctx.beginPath();
-        ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 5*scale);
-        ctx.fill();
-        ctx.stroke();
-      }
-    }
+  if(x + dx > canvas.width - ballRadius || x + dx < ballRadius){  /* ||：意思是「或」。  當球碰到畫布的左右邊界時，就將球在水平方向的移動速度（dx）反向，讓球反彈。 */
+    dx = -dx;                 
+    x = x + dx;                                                   
+    y = y + dy;
   }
-}
+  if(y + dy < ballRadius){                                      /* 撞到上邊反彈。在 HTML Canvas 中，座標原點 (0,0) 位於畫布的左上角。 */
+    dy = -dy;   
+    x = x + dx;                                                   
+    y = y + dy;
+  }        
+  if(y + dy > canvas.height - paddleHeight - 10*scale - ballRadius){     /* 檢查是否到達底部。 */
+    if(win_status) {
+      gameRunning = false; 
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '2.6vh Arial'};  
+      ctx.fillStyle = '#333333';
+      ctx.fillText('🎉 你贏了！恭喜破關！', canvas.width/8, canvas.height/2);      
+    }    
 
-function drawBall() {
-  const grad = ctx.createRadialGradient(x - ballRadius/2, y - ballRadius/2, ballRadius/4, x, y, ballRadius);
-  grad.addColorStop(0, "#fff");
-  grad.addColorStop(1, "#ff4444");
-  ctx.fillStyle = grad;
-  ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-  ctx.fill();
-  ctx.strokeStyle="#aa0000";
-  ctx.stroke();
-}
+    else if(x > paddleX && x < paddleX + paddleWidth){                  /* 若球在球拍範圍內。 */
+            x = x + dx +((Math.random() - 0.5) * 2.5);                 /* 增加隨機橫向變化。生成一个大于或等于 0 且小于 1 的伪随机浮点数。 */
+            y = y + (-dy * 1.03);                                      /* 向上反彈，並略微加速。 */
+            dy = -dy;  
+            if ((Math.random() - 0.5) > 0) dx = dx; 
+            else {dx = -dx};   
+    }   
+  }            
+  if(y + dy > canvas.height - ballRadius){         
+    loseLife();                                            
+    return;                                                
+  }                                                                                                                         
 
-function drawPaddle() {
-  const grad = ctx.createLinearGradient(paddleX, canvas.height-paddleHeight, paddleX, canvas.height);
-  grad.addColorStop(0, "#004080");
-  grad.addColorStop(1, "#0099ff");
-  ctx.fillStyle = grad;
-  ctx.beginPath();
-  ctx.roundRect(paddleX, canvas.height-paddleHeight-5, paddleWidth, paddleHeight, 6*scale);
-  ctx.fill();
-  ctx.strokeStyle="#002244";
-  ctx.stroke();
-}
+  if (size='large') scale_paddle = 1; else  {scale_paddle = 0.65};        
+  if(rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 5 * scale_paddle;        /* 若按右鍵，球拍右移。 */
+  else if(leftPressed && paddleX > 0) paddleX -= 5 * scale_paddle;                             /* 若按左鍵，球拍左移。 */
 
-function collisionDetection() {
-  for(let c=0;c<brickColumnCount;c++){
-    for(let r=0;r<brickRowCount;r++){
-      const b=bricks[c][r];
-      if(b.status===1){
-        if(x>b.x && x<b.x+brickWidth && y>b.y && y<b.y+brickHeight){
-          dy = -dy;
-          b.status = 0;
-          score++;
-          scoreDisplay.textContent = score;
-          if(score === brickRowCount*brickColumnCount){
-            gameRunning=false;
-            alert("🎉 你贏了！恭喜破關！");
-          }
-        }
-      }
-    }
-  }
-}
+  x = x + dx;                                                   
+  y = y + dy;                                                       
 
-function draw() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  drawBricks();
-  drawBall();
-  drawPaddle();
-  collisionDetection();
-
-  if(x + dx > canvas.width - ballRadius || x + dx < ballRadius) dx = -dx;
-  if(y + dy < ballRadius) dy = -dy;
-  else if(y + dy > canvas.height - paddleHeight - 10){
-    if(x > paddleX && x < paddleX + paddleWidth){
-      dy = -dy * 1.02;
-      dx += (Math.random() - 0.5) * 0.6;
-    } else if (y + dy > canvas.height - ballRadius) {
-      loseLife();
-      return;
-    }
-  }
-
-  if(rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 5 * scale;
-  else if(leftPressed && paddleX > 0) paddleX -= 5 * scale;
-
-  x += dx;
-  y += dy;
-
-  if(gameRunning) requestAnimationFrame(draw);
-}
-
-function loseLife() {
-  lives--;
-  updateLives();
-  if(lives > 0){
+  if(gameRunning) requestAnimationFrame(play);                   /* 若遊戲未結束，重複執行 draw（每秒約 60 次）。 */
+}                                                                /* 結束 draw 函式。 */
+// ------------------------------
+function drawBricks() {                                           /* 定義繪製磚塊的函式。 */
+  for(let c=0; c<brickColumnCount; c++){                          /* 外層迴圈：列。 */
+    for(let r=0; r<brickRowCount; r++){                           /* 內層迴圈：行。 */
+      if(bricks[c][r].status === 1){                              /* 只畫出尚未被打掉的磚塊。 */
+        const brickX = brickOffsetLeft + c*(brickWidth + brickPadding);      /* 計算該磚塊的 X 位置。 */
+        const brickY = brickOffsetTop + r*(brickHeight + brickPadding);      /* 計算該磚塊的 Y 位置。 */
+        bricks[c][r].x = brickX;                                             /* 更新磚塊物件的 x。 */
+        bricks[c][r].y = brickY;                                             /* 更新磚塊物件的 y。 */
+        const grad = ctx.createLinearGradient(brickX, brickY, brickX, brickY+brickHeight);    /* 建立磚塊的垂直漸層色彩。 */
+        grad.addColorStop(0, "#ff9966");                         /* 漸層上方顏色。 */
+        grad.addColorStop(1, "#ff3300");                         /* 漸層下方顏色。 */
+        ctx.fillStyle = grad;                                    /* 設定填充顏色。 */
+        ctx.strokeStyle = "#b32d00";                             /* 設定邊框顏色。 */
+        ctx.beginPath();                                         /* 開始畫圖路徑。 */
+        ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 5*scale);   /* 繪製圓角矩形磚塊。 */
+        ctx.fill();                                              /* 填滿顏色。 */
+        ctx.stroke();                                            /* 畫邊框。 */
+      }                                                          /* 結束 if。 */
+    }                                                            /* 結束內層 for。  */     
+  }                                                              /* 結束外層 for。 */
+}                                                                /* 結束 drawBricks。 */
+// --------------------------------
+function drawBall() {                                            /* 定義繪製球的函式。 */
+  const grad = ctx.createRadialGradient(x - ballRadius/2, y - ballRadius/2, ballRadius/4, x, y, ballRadius);   /* 建立球的光暈漸層。 */
+  grad.addColorStop(0, "#fff");                                  /* 中心白亮。 */
+  grad.addColorStop(1, "#ff4444");                               /* 外圈紅色。 */
+  ctx.fillStyle = grad;                                          /* 設定填充樣式。 */
+  ctx.beginPath();                                               /* 開始繪製。 */
+  ctx.arc(x, y, ballRadius, 0, Math.PI*2);                       /* 畫圓。x：圓心的 X 座標。y：圓心的 Y 座標。ballRadius：圓的半徑。0：起點角度（從 0 弧度開始，即右側水平方向）。Math.PI * 2：終點角度（Math.PI 是 180 度，乘以 2 就是 360 度，代表畫一整圈）。 */
+  ctx.fill();                                                    /* 填滿球體。 */
+  ctx.strokeStyle="#aa0000";                                     /* 外框線紅色。 */
+  ctx.stroke();                                                  /* 畫外框。 */
+}                                                                /* 結束 drawBall。 */
+// --------------------------------
+function drawPaddle() {                                          /* 定義繪製球拍函式。 */
+  const grad = ctx.createLinearGradient(paddleX, canvas.height-paddleHeight, paddleX, canvas.height);      /*  建立藍色漸層。 */
+  grad.addColorStop(0, "#004080");                               /* 上方深藍。 */
+  grad.addColorStop(1, "#0099ff");                               /* 下方亮藍。 */
+  ctx.fillStyle = grad;                                          /* 設定顏色。 */
+  ctx.beginPath();                                               /* 開始繪圖。 */
+  // ctx.roundRect(paddleX, canvas.height-paddleHeight-2*scale, paddleWidth, paddleHeight, 6*scale);    /* 畫出球拍矩形。6 * scale：矩形圓角半徑。數值由基礎圓角 6 乘上畫面縮放比例 scale */
+  ctx.roundRect(paddleX, canvas.height-paddleHeight-2*scale, paddleWidth, paddleHeight, 6*scale); 
+  ctx.fill();                                                    /* 填滿球拍顏色。 */
+  ctx.strokeStyle="#002244";                                     /* 球拍邊框色。 */
+  ctx.stroke();                                                  /* 畫出邊框。 */
+}                                                                /* 結束 drawPaddle。 */
+// --------------------------------
+function collisionDetection() {                                  /* 磚塊碰撞偵測函式。 */
+  for(let c=0;c<brickColumnCount;c++){                           /* 外層列迴圈。 */
+    for(let r=0;r<brickRowCount;r++){                            /* 內層行迴圈。 */
+      const b=bricks[c][r];                                      /* 取出每一塊磚。 */
+      if(b.status===1){                                          /* 只判斷還存在的磚。 */
+        if(x>b.x && x<b.x+brickWidth && y>b.y && y<b.y+brickHeight){                                        /* 判斷球是否打到磚塊範圍內。 */
+          dy = -dy;                                              /* 碰到後反彈。 */
+          b.status = 0;                                          /* 設為被打掉。 */
+          score++;                                               /* 分數 +1。 */
+          scoreDisplay.textContent = score;                      /* 更新畫面。 */
+          if(score === brickRowCount*brickColumnCount){          /* 若分數達全部磚塊總數。 */
+            win_status = true;
+          }                                                      /*  結束 if。 */
+        }                                                        /*  結束反彈 if。 */
+      }                                                          /* 結束碰撞 if。 */
+    }                                                            /* 結束行迴圈。 */
+  }                                                              /* 結束列迴圈。 */
+}                                                                /*  結束函式。 */ 
+// --------------------------------
+function loseLife() {                                            /* 定義扣命函式。 */
+  lives--;                                                       /* 生命減一。 */
+  updateLives();                                                 /* 更新畫面。 */
+  if(lives > 0){                                                 /* 若還有命。 */
     // 暫停一秒再重新發球
-    ballActive = false;
-    x = canvas.width / 2;
-    y = canvas.height - 30*scale;
-    dx = 3 * scale;
-    dy = -3 * scale;
-    paddleX = (canvas.width - paddleWidth) / 2;
-    setTimeout(()=>{ ballActive = true; draw(); }, 1000);
-  } else {
-    gameRunning = false;
-    alert("💥 遊戲結束！分數：" + score);
+    ballActive = false;                                          /* 暫停球。 */
+    x = canvas.width / 2;                                        /* 重置球位置。 */
+    y = canvas.height - 30*scale;                                /* 重置球 Y */
+    // dx = 3 * scale;                                              /* 重置球的水平移動速度。 */
+    // dy = -3 * scale;                                             /* 重置球的垂直移動速度。 */
+    if (size='large') {dx = 3; dy = -3} else {dx = 3 * 0.65; dy = -3 * 0.65}; 
+
+    paddleX = (canvas.width - paddleWidth) / 2;                  /* 將接球的擋板 (paddle) 位置重置到畫面正中央。 */
+    setTimeout(()=>{ ballActive = true; play(); }, 1250);        /* 設定一個 1000 毫秒（1 秒）的計時器。時間到後，將 ballActive 設回 true（恢復球的移動），並呼叫 draw() 重新繪製畫面以開始新的一局。 */
+  } else {                                                       /* 如果生命數小於或等於 0（即扣完最後一條命）。 */
+    gameRunning = false;                                         /* 將遊戲執行狀態設為關閉，停止遊戲主循環。 */
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '2.6vh Arial'};  
+      // ctx.font = '4vh Arial';  
+      ctx.fillStyle = '#333333';
+      ctx.fillText("💥 遊戲結束！分數：" + score, canvas.width/10, canvas.height/2);  
+    // alert("💥 遊戲結束！分數：" + score);                         /* 跳出一個彈跳視窗，顯示遊戲結束訊息與玩家的最終得分 (score)。 */
+  }                                                              /*  結束else。 */ 
+}                                                                /*  結束函式。 */ 
+// -------------------------------
+function updateLives() {                                          /* 定義更新生命顯示的函式。 */
+  livesDisplay.textContent = "❤️".repeat(lives);                  /* 顯示與目前生命數相同的愛心數量。 */
+}                                                                 /* 結束 updateLives。 */
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// --- 視窗大小改變監聽 ---
+window.addEventListener('resize', resizeCanvas);                       /* 當視窗大小改變時，重新執行 resizeCanvas() */
+
+// --- 鍵盤按下監聽 ---
+document.addEventListener("keydown", e=>{                              /* 為整個網頁文件 (document) 註冊一個監聽器，偵測「按下按鍵 (keydown)」的動作。e 是事件物件（包含按鍵資訊）。 */
+  if(e.key==="Right" || e.key==="ArrowRight") rightPressed=true;       /* 如果按下的鍵是右方向鍵（舊版瀏覽器名稱為 "Right"，新版為 "ArrowRight"），就將右移變數 rightPressed 設為 true。 */
+  else if(e.key==="Left" || e.key==="ArrowLeft") leftPressed=true;     /* 否則，如果按下的鍵是左方向鍵（舊版為 "Left"，新版為 "ArrowLeft"），就將左移變數 leftPressed 設為 true。 */
+});                                                                    /* 結束第一個事件監聽器。 */
+// --- 鍵盤放開監聽 ---
+document.addEventListener("keyup", e=>{                                /* 為網頁文件註冊另一個監聽器，偵測「放開按鍵 (keyup)」的動作。 */
+  if(e.key==="Right" || e.key==="ArrowRight") rightPressed=false;      /* 如果放開的是右方向鍵，就將 rightPressed 設為 false（停止向右）。 */
+  else if(e.key==="Left" || e.key==="ArrowLeft") leftPressed=false;    /* 如果放開的是左方向鍵，就將 leftPressed 設為 false（停止向左）。 */
+});                                                                    /* 結束第二個事件監聽器。 */
+
+// --- 手機觸控監聽 ---
+canvas.addEventListener("touchmove", e=>{                              /* 為畫布 (canvas) 註冊一個監聽器，偵測「手指在螢幕上滑動 (touchmove)」的動作。e 是觸控事件物件。 */
+  const rect = canvas.getBoundingClientRect();                         /* 取得整個 canvas 畫布在目前瀏覽器視窗中的絕對位置與大小（包含它距離視窗最左邊 left 和最頂端 top 的像素距離）。 */
+  const moveX = e.touches[0].clientX - rect.left;                      /* 代表第一根手指在目前視窗中的 X 軸位置。 減去 rect.left（畫布左邊緣的視窗位置）後，就能精準算出手指此時在 canvas 畫布內部的相對 X 座標，存入 moveX。*/
+  paddleX = moveX - paddleWidth/2;                                     /* 將擋板的左上角 X 座標 (paddleX) 設定為「手指位置減去擋板寬度的一半」。 這樣做能讓擋板的中心點剛好對齊手指，滑動時視覺體驗最流暢、最直覺。*/
+  if(paddleX < 0) paddleX = 0;                                         /* 如果算出來的擋板位置跑到畫布左邊緣外面 (< 0)，就把位置強制鎖定在最左邊 (= 0)。 */
+  if(paddleX + paddleWidth > canvas.width) paddleX = canvas.width - paddleWidth;      /* 如果擋板右邊緣的位置 (paddleX + paddleWidth) 超過畫布的總寬度，就把位置鎖定在最右邊（即總寬度減去擋板寬度）。 */
+  e.preventDefault();                                                  /* 阻止手機網頁的預設滑動行為（例如：在手機上往下滑動網頁通常會重新整理，或者會拉動整個網頁畫面）。這樣能確保玩家在玩遊戲時，畫面不會亂飄。 */
+});                                                                    /* 結束觸控事件監聽器。 */
+
+// --- 滑鼠按下監聽 ---
+canvas.addEventListener("mousedown", e=>{                              /* 監聽滑鼠在畫布上「按下」的動作。 */
+  const rect = canvas.getBoundingClientRect();                         /* 取得 canvas 畫布在目前視窗中的絕對位置與大小。 */
+  const mouseX = e.clientX - rect.left;                                /* 計算滑鼠按下時，在 canvas 內部的相對 X 軸座標。 */
+  const mouseY = e.clientY - rect.top;                                 /* 計算滑鼠按下時，在 canvas 內部的相對 Y 軸座標。 */
+  if(mouseY > canvas.height - paddleHeight - 20 && mouseX > paddleX && mouseX < paddleX + paddleWidth){            /* 檢查滑鼠點擊的位置，有沒有落在擋板的碰撞範圍內：點擊高度是否在擋板所在的水平區間內。點擊的水平位置是否在擋板的左緣和右緣之間。 */
+    isDragging = true;                                                 /* 如果滑鼠確實點中了擋板，就把拖曳狀態設為 true，允許開始拖曳。 */
   }
-}
-
-// --- 控制 ---
-document.addEventListener("keydown", e=>{
-  if(e.key==="Right" || e.key==="ArrowRight") rightPressed=true;
-  else if(e.key==="Left" || e.key==="ArrowLeft") leftPressed=true;
-});
-document.addEventListener("keyup", e=>{
-  if(e.key==="Right" || e.key==="ArrowRight") rightPressed=false;
-  else if(e.key==="Left" || e.key==="ArrowLeft") leftPressed=false;
-});
-
-// --- 觸控控制（手機） ---
-canvas.addEventListener("touchmove", e=>{
-  const rect = canvas.getBoundingClientRect();
-  const moveX = e.touches[0].clientX - rect.left;
-  paddleX = moveX - paddleWidth/2;
-  if(paddleX < 0) paddleX = 0;
-  if(paddleX + paddleWidth > canvas.width) paddleX = canvas.width - paddleWidth;
-  e.preventDefault();
-});
-
-// --- 滑鼠拖曳控制 ---
-let isDragging = false;
-canvas.addEventListener("mousedown", e=>{
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-  if(mouseY > canvas.height - paddleHeight - 20 && mouseX > paddleX && mouseX < paddleX + paddleWidth){
-    isDragging = true;
+});                                                                    /* 結束判斷式與按下事件監聽。 */
+// --- 滑鼠移動監聽 ---
+canvas.addEventListener("mousemove", e=>{                              /* 監聽滑鼠在畫布上的「移動」動作。 */
+  if(isDragging){                                                      /* 只有在 isDragging 為 true（也就是玩家正按住擋板）的情況下，才執行裡面的移動邏輯。如果只是純移動滑鼠沒按住，就不會理它。 */
+    const rect = canvas.getBoundingClientRect();                       /* 再次取得畫布的絕對位置（確保座標計算精確）。 */
+    const moveX = e.clientX - rect.left;                               /* 計算滑鼠目前在畫布內部的最新 X 軸座標。 */
+    paddleX = moveX - paddleWidth / 2;                                 /* 將擋板的中心點對齊滑鼠的 X 軸位置，讓拖曳感更直覺。 */
+    if(paddleX < 0) paddleX = 0;                                       /* 限制左邊界，防止擋板移出畫布左邊。 */
+    if(paddleX + paddleWidth > canvas.width) paddleX = canvas.width - paddleWidth;                  /* 限制右邊界，防止擋板移出畫布右邊。 */
   }
-});
-canvas.addEventListener("mousemove", e=>{
-  if(isDragging){
-    const rect = canvas.getBoundingClientRect();
-    const moveX = e.clientX - rect.left;
-    paddleX = moveX - paddleWidth / 2;
-    if(paddleX < 0) paddleX = 0;
-    if(paddleX + paddleWidth > canvas.width) paddleX = canvas.width - paddleWidth;
-  }
-});
-canvas.addEventListener("mouseup", ()=>{ isDragging = false; });
-canvas.addEventListener("mouseleave", ()=>{ isDragging = false; });
+});                                                                    /* 結束判斷式與移動事件監聽。 */
+// --- 滑鼠放開監聽 ---
+canvas.addEventListener("mouseup", ()=>{ isDragging = false; });       /* 當玩家「放開」滑鼠左鍵時，將拖曳狀態設回 false，停止移動擋板。 */
+// --- 滑鼠超出畫布範圍，就算放開監聽 ---
+canvas.addEventListener("mouseleave", ()=>{ isDragging = false; });    /* 當滑鼠不小心「移出」整個畫布範圍時，同樣強迫將拖曳狀態設為 false，避免滑鼠繞一圈回來後擋板還黏在滑鼠上的靈異現象。 */
 
-// --- 重新開始 ---
-restartBtn.addEventListener("click", ()=>{
-  initGame();
-  draw();
-});
-
-resizeCanvas();   /* 先執行一次以設定畫布大小與初始化遊戲。 */
-draw();   /* 開始進入遊戲主迴圈（動畫進行）。 */
-</script>
-</body>
-</html>
+// --- "暫停按鈕"點擊監聽 ---
+pause.addEventListener("click", ()=>{                             
+  if (gameRunning) {
+    pause.textContent ='取消暫停';  
+    gameRunning=false;
+  }               
+  else if (!gameRunning) {
+    pause.textContent ='暫停';  
+    gameRunning=true;
+    play(); 
+  }                           
+});         
+// --- "重新開始按鈕"點擊監聽 ---
+restartBtn.addEventListener("click", ()=>{                             /* 監聽重新開始按鈕 (restartBtn) 的「點擊」動作。 */
+  initialize();                                                          /* 呼叫遊戲初始化函式，重置分數、生命、磚塊陣列與球的位置。 */
+  play();                                                              /* 呼叫繪製函式，重新啟動遊戲的畫面渲染與主循環。 */
+});                                                                  
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+initialize();                                                         /* 定義初始化遊戲的基本參數。 。 */
+play();                                                               /* 開始進入遊戲主迴圈（動畫進行）。 */
+</script>                                                             <!-- /* 結束 JavaScript */ -->
+</body>                                                               <!-- /* 主內容結束 */  -->
+</html>                                                               <!-- /* html結束 */  -->
