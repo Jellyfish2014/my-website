@@ -100,87 +100,99 @@
     生命：<span id="lives">❤️❤️❤️</span>                         <!-- /* 顯示三顆愛心代表三條命 */  -->
   </div>                                                          <!-- /* 結束 info 區塊 */  -->
   <div class="button-row">
-    <button id="pause">暫停</button>                        <!-- /* 一個按鈕用來重開遊戲 */  -->
+    <button id="pause">暫停</button>                        
     <button id="restartBtn">重新開始</button>
   </div>
 
-<script>                                                          /* 開始 JavaScript 區段 */
-const canvas = document.getElementById("gameCanvas");             /* 取得 <canvas> 元素，作為主要遊戲畫面 */
-const ctx = canvas.getContext("2d");                              /* 取得 2D 繪圖上下文 (context)，用於在畫布上繪製圖形 */
+<script>                                                         
+const canvas = document.getElementById("gameCanvas");            
+const ctx = canvas.getContext("2d");                             
 const winDisplay = document.getElementById("win");   
-const scoreDisplay = document.getElementById("score");            /* 取得分數顯示用的 <span> */
-const livesDisplay = document.getElementById("lives");            /* 取得生命顯示區塊 */
+const scoreDisplay = document.getElementById("score");           
+const livesDisplay = document.getElementById("lives");           
 const pause = document.getElementById("pause");
-const restartBtn = document.getElementById("restartBtn");         /* 取得「重新開始」按鈕 */
+const restartBtn = document.getElementById("restartBtn");        
 
-let brickOffsetTop = 12;                                          /* 第一排磚塊離畫布上緣的距離 */
-let brickOffsetLeft = 5;                                         /* 磚塊離畫布左邊的距離 */
-let brickPadding = 5;                                            /* 磚塊之間的間距 */
-let brickRowCount = 5;                                            /* 磚塊行數（橫向 5 行） */
-let brickColumnCount = 8;                                         /* 磚塊列數（縱向 8 列） */
-let brickHeight = 18;    
-let brickWidth;                                                  /* 宣告變數（磚塊寬、高之後由函數計算） */
+const original_brickOffsetTop = 12;                              
+const original_brickOffsetLeft = 5;                              
+const original_brickPadding = 5;                                 
+let brickRowCount = 5;                                           
+let brickColumnCount = 8;                                        
+const original_brickHeight = 18;    
+let brickWidth;                                                  
 
-let ballRadius = 8;                                               /* 定義球的半徑 */
+const original_ballRadius = 8;                                               
 
-let paddleHeight = 12;                                            /* 球拍高度 */
-let paddleWidth = 70;                                             /* 球拍寬度 */
+const original_paddleHeight = 12;                                            
+const original_paddleWidth = 70;                                             
 
-let widthin_large = 400;      
-let widthout_large = widthin_large / 0.9
-let heightin_large = widthout_large * 1.2;  
-let heightout_large = heightin_large * 1.37;     
+const widthin_large = 400;      
+const widthout_large = widthin_large / 0.92
+const heightin_large = widthout_large * 1.18;  
+const heightout_large = heightin_large * 1.37;     
 
-let x, y, dx, dy, paddleX, size, scale_paddle;   
-let score = 0;                                                    /* 分數初始值 0 */
-let lives = 3;                                                    /* 玩家生命初始值為 3 */
-let bricks = [];                                                  /* 儲存所有磚塊狀態的陣列 */
-let rightPressed = false;                                         /* 右鍵是否按下 */
-let leftPressed = false;                                          /* 左鍵是否按下 */
-let scale = 1;                                                    /* 遊戲畫面縮放比例（自動根據螢幕大小調整） */
-let gameRunning = true;                                           /* 控制遊戲是否正在進行 */
-let ballActive = true;                                            /* 控制球是否正在移動中（用於暫停後重新發球） */
-let isDragging = false;                                           /* 宣告一個布林值變數 isDragging，用來記錄玩家現在「是不是正在拖曳擋板」。預設值為 false。 */
+let x, y, dx, dy, paddleX, size, current_scale;   
+let score = 0;                                                 
+let lives = 3;                                                 
+let bricks = [];                                               
+let rightPressed = false;                                      
+let leftPressed = false;                                       
+const original_scale = 1;     
+const small_scale = 0.65;                                          
+let gameRunning = true;                                        
+let ballActive = true;                                         
+let isDragging = false;                                        
 let win_status = false;
 // // ------------------------------
 function  initialize() {                                         
   if (window.innerHeight > heightout_large* 0.88) {  
+
     size = 'large'
-    scale = 1;  
+    // scale = 1;  
     canvas.width = widthin_large;                                          
-    canvas.height = heightin_large;                            
+    canvas.height = heightin_large;
+    x = canvas.width / 2;                                           
+    y = canvas.height - 30*original_scale;                                   
+    dx = 3 * original_scale;                                                 
+    dy = -3 * original_scale;          
+    brickOffsetTop = original_brickOffsetTop * original_scale;  
+    brickOffsetLeft = original_brickOffsetLeft * original_scale;  
+    brickPadding = original_brickPadding * original_scale; 
+    brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      
+    brickHeight = original_brickHeight * original_scale;       
+    ballRadius = original_ballRadius * original_scale;
+    paddleWidth = original_paddleWidth * original_scale;                                       
+    paddleHeight = original_paddleHeight * original_scale;   
+    paddleX = (canvas.width - paddleWidth) / 2;       
+
   } else {  
     size = 'small'
-    scale = 0.65; 
-    canvas.height = heightin_large * scale;                                            
-    canvas.width = widthin_large * scale;                                          
+    // scale = 0.65; 
+    canvas.height = heightin_large * small_scale;                                            
+    canvas.width = widthin_large * small_scale;     
+    x = canvas.width / 2;                                           
+    y = canvas.height - 30*small_scale;                                   
+    dx = 3 * small_scale;                                                 
+    dy = -3 * small_scale;                                                
+    brickOffsetTop = original_brickOffsetTop * small_scale;  
+    brickOffsetLeft = original_brickOffsetLeft * small_scale;  
+    brickPadding = original_brickPadding * small_scale; 
+    brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      
+    brickHeight = original_brickHeight * small_scale;       
+    ballRadius = original_ballRadius * small_scale;
+    paddleWidth = original_paddleWidth * small_scale;                                       
+    paddleHeight = original_paddleHeight * small_scale;   
+    paddleX = (canvas.width - paddleWidth) / 2;     
+
     }                                     
-
-  x = canvas.width / 2;                                           
-  y = canvas.height - 30*scale;                                   
-  dx = 3 * scale;                                                 
-  dy = -3 * scale;                                                
-
-  brickOffsetTop = brickOffsetTop * scale;  
-  brickOffsetLeft = brickOffsetLeft * scale;  
-  brickPadding = brickPadding * scale; 
-
-  brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      
-  brickHeight = brickHeight * scale;       
-
-  ballRadius = ballRadius * scale;
-
-  paddleWidth = paddleWidth * scale;                                       
-  paddleHeight = paddleHeight * scale;   
-
-  paddleX = (canvas.width - paddleWidth) / 2;                       
-                             
+                      
   score = 0;                                                      
   lives = 3;                                                      
   scoreDisplay.textContent = score;                               
   livesDisplay.textContent = "❤️".repeat(lives);           
   gameRunning = true;                          
   // gameRunning = false;   
+
   bricks = [];                                                    /* 清空並建立一個名為 bricks 的空陣列 */
   for(let c=0; c<brickColumnCount; c++){                          /* 外層迴圈：每一列磚塊 */
     bricks[c] = [];                                               /* 每列建立一個子陣列 */
@@ -189,107 +201,115 @@ function  initialize() {
     }                                                             /* 結束內層迴圈 */
   }                                                               /* 結束外層迴圈 */
 }                                                                 /* 結束  initsizeCanvas 函式 */
+
 // -------------------------
-function resizeCanvas() {                                         /* 定義一個函式，根據螢幕大小調整畫布尺寸 */ 
+function resizeCanvas() {                                        
   if (size == 'large'){
     if (window.innerHeight > heightout_large * 0.88) {  
-      scale = 1;   
+      // scale = 1;   
       canvas.width = widthin_large;                                           
       canvas.height = heightin_large;    
       x = x;                                   
       y = y;                                 
       dx = dx;                                                 
       dy = dy;    
-      brickPadding = brickPadding;  
-      brickOffsetTop = brickOffsetTop; 
-      brickOffsetLeft = brickOffsetLeft; 
+      brickPadding = original_brickPadding;  
+      brickOffsetTop = original_brickOffsetTop; 
+      brickOffsetLeft = original_brickOffsetLeft; 
       brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      /* 根據畫布寬度自動計算每個磚塊的寬度 */
-      brickHeight = brickHeight;                                       /* 磚塊高度隨比例縮放 */
-      ballRadius = ballRadius;                                         /* 球的大小隨比例縮放 */
+      brickHeight = original_brickHeight;                                       
+      ballRadius = original_ballRadius;                                         
+      paddleWidth = original_paddleWidth;                                       
+      paddleHeight = original_paddleHeight;        
 
-      paddleWidth = paddleWidth;                                       
-      paddleHeight = paddleHeight;                                       
       paddleX = paddleX;
       // size = 'large' 
 
     } else {  
-        scale = 0.65
-        canvas.width = widthin_large * scale;        
-        canvas.height = heightin_large * scale;          
-        x = x* scale;                                   
-        y = y * scale;                                 
-        dx = dx * scale;                                                 
-        dy = dy * scale;    
-        brickPadding = brickPadding * scale;  
-        brickOffsetTop = brickOffsetTop * scale; 
-        brickOffsetLeft = brickOffsetLeft * scale; 
-        brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      /* 根據畫布寬度自動計算每個磚塊的寬度 */
-        brickHeight = brickHeight * scale;                                       /* 磚塊高度隨比例縮放 */
-        ballRadius = ballRadius * scale;                                         /* 球的大小隨比例縮放 */
+        // scale = 0.65
+        canvas.width = widthin_large * small_scale;        
+        canvas.height = heightin_large * small_scale;          
+        x = x* small_scale;                                   
+        y = y * small_scale;                                 
+        dx = dx * small_scale;                                                 
+        dy = dy * small_scale;    
+        brickPadding = original_brickPadding * small_scale;  
+        brickOffsetTop = original_brickOffsetTop * small_scale; 
+        brickOffsetLeft = original_brickOffsetLeft * small_scale; 
+        brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;    
+        brickHeight = original_brickHeight * small_scale;                                     
+        ballRadius = original_ballRadius * small_scale;                                         
 
-        paddleWidth = paddleWidth * scale;                                       
-        paddleHeight = paddleHeight * scale;                                       
+        paddleWidth = original_paddleWidth * small_scale;                                       
+        paddleHeight = original_paddleHeight * small_scale;                                       
 
-        paddleX = (paddleX + paddleWidth/scale/2)*scale-(paddleWidth/2);    
+        paddleX = (paddleX + original_paddleWidth/2)*small_scale-(original_paddleWidth * small_scale/2);    
         size = "small"    
       } 
-  } 
-  if (size == 'small'){
-    if (window.innerHeight <= heightout_large * 0.88) {  
-        scale = 1;   
-        canvas.width = widthin_large * 0.65;                                           
-        canvas.height = heightin_large * 0.65;    
-        x = x;                                   
-        y = y;                                 
-        dx = dx;                                                 
-        dy = dy;    
-        brickPadding = brickPadding;  
-        brickOffsetTop = brickOffsetTop; 
-        brickOffsetLeft = rickOffsetLeft; 
-        brickWidth = brickWidth;      
-        brickHeight = brickHeight;                                       /* 磚塊高度隨比例縮放 */
-        ballRadius = ballRadius;                                         /* 球的大小隨比例縮放 */
+  } else if (size == 'small'){
+      if (window.innerHeight <= heightout_large * 0.88) {  
+          // scale = 1;   
+          canvas.width = widthin_large * small_scale;                                           
+          canvas.height = heightin_large * small_scale;    
+          x = x;                                   
+          y = y;                                 
+          dx = dx;                                                 
+          dy = dy;    
+          brickPadding = original_brickPadding * small_scale;  
+          brickOffsetTop = original_brickOffsetTop * small_scale; 
+          brickOffsetLeft = original_brickOffsetLeft * small_scale; 
+          brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;    
+          brickHeight = original_brickHeight * small_scale;                                     
+          ballRadius = original_ballRadius * small_scale;                                        
 
-        paddleWidth = paddleWidth;                                       
-        paddleHeight = paddleHeight;                                       
-        paddleX = paddleX;     
-        // size = "small" 
+          paddleWidth = original_paddleWidth * small_scale;                                       
+          paddleHeight = original_paddleHeight * small_scale;   
 
-    } else {  
-        scale = 1/0.65
-        canvas.width = widthin_large *  1;        
-        canvas.height = heightin_large * 1;          
-        x = x * scale;                                   
-        y = y * scale;                                 
-        dx = dx * scale;                                                 
-        dy = dy * scale;    
-        brickPadding = brickPadding * scale;  
-        brickOffsetTop = brickOffsetTop * scale; 
-        brickOffsetLeft = brickOffsetLeft * scale; 
-        brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      /* 根據畫布寬度自動計算每個磚塊的寬度 */
-        brickHeight = brickHeight * scale;                                       /* 磚塊高度隨比例縮放 */
-        ballRadius = ballRadius * scale;                                         /* 球的大小隨比例縮放 */
+          paddleX = paddleX;     
+          // size = "small" 
 
-        paddleWidth = paddleWidth * scale;                                       
-        paddleHeight = paddleHeight * scale;                                       
+      } else {  
+          // scale = 1/0.65
+          canvas.width = widthin_large;        
+          canvas.height = heightin_large;          
+          x = x / small_scale;                                   
+          y = y / small_scale;                                 
+          dx = dx / small_scale;                                                 
+          dy = dy / small_scale;    
+          brickPadding = original_brickPadding;  
+          brickOffsetTop = original_brickOffsetTop; 
+          brickOffsetLeft = original_brickOffsetLeft; 
+          brickWidth = (canvas.width - brickOffsetLeft*2 - (brickColumnCount-1)*brickPadding) / brickColumnCount;      
+          brickHeight = original_brickHeight;                                       
+          ballRadius = original_ballRadius;                                        
 
-        paddleX = (paddleX + paddleWidth/scale/2)*scale-(paddleWidth/2); 
-        size = 'large'
-      } 
+          paddleWidth = original_paddleWidth;                                       
+          paddleHeight = original_paddleHeight;                                       
+
+          paddleX = (paddleX + original_paddleWidth*small_scale/2)/small_scale-(original_paddleWidth/2); 
+          size = 'large'
+        } 
     }
   }  
                                                                
 // -----------------------------
 function play() {
   ctx.clearRect(0,0,canvas.width,canvas.height);                 /*清除整個 HTML5 Canvas 畫布上的所有內容，使其恢復為完全透明的初始狀態。*/
+
+  x = x + dx;                                                   
+  y = y + dy;        
+
   drawBricks();                                                  /* 繪出磚塊。 */
   drawBall();                                                    /* 繪出球。 */
   drawPaddle();                                                  /* 繪出球拍。 */
   collisionDetection();                                          /* 檢查碰撞。 */
+
   if(win_status){  
-    if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '2.6vh Arial'};
+    if (size =='large') ctx.font = '4vh Arial'; else  {ctx.font = '3vh Arial'};
     ctx.fillStyle = '#333333';
-    ctx.fillText('🎉 你贏了！恭喜破關！', canvas.width/8, canvas.height/2);     
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";  
+    ctx.fillText('🎉 你贏了！恭喜破關！', canvas.width/2, canvas.height/2);     
   }
   if(x + dx > canvas.width - ballRadius || x + dx < ballRadius){  /* ||：意思是「或」。  當球碰到畫布的左右邊界時，就將球在水平方向的移動速度（dx）反向，讓球反彈。 */
     dx = -dx;                 
@@ -300,35 +320,37 @@ function play() {
     dy = -dy;   
     x = x + dx;                                                   
     y = y + dy;
-  }        
-  if(y + dy > canvas.height - paddleHeight - 10*scale - ballRadius){     /* 檢查是否到達底部。 */
+  }  
+  
+  if (size =='large') current_scale = original_scale; else  {current_scale = small_scale};       
+  if(y + dy > canvas.height - paddleHeight - 10*current_scale - ballRadius){     /* 檢查是否到達底部。 */
     if(win_status) {
       gameRunning = false; 
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '2.6vh Arial'};  
+      if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '3vh Arial'};  
       ctx.fillStyle = '#333333';
-      ctx.fillText('🎉 你贏了！恭喜破關！', canvas.width/8, canvas.height/2);      
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";     
+      ctx.fillText('🎉 你贏了！恭喜破關！', canvas.width/2, canvas.height/2);      
     }    
 
     else if(x > paddleX && x < paddleX + paddleWidth){                  /* 若球在球拍範圍內。 */
-            x = x + dx +((Math.random() - 0.5) * 2.5);                 /* 增加隨機橫向變化。生成一个大于或等于 0 且小于 1 的伪随机浮点数。 */
-            y = y + (-dy * 1.03);                                      /* 向上反彈，並略微加速。 */
+            x = x + dx +((Math.random() - 0.5) * 10.5);                 /* 增加隨機橫向變化。生成一个大于或等于 0 且小于 1 的伪随机浮点数。 */
+            y = y + (-dy * 1.05);                                      /* 向上反彈，並略微加速。 */
             dy = -dy;  
             if ((Math.random() - 0.5) > 0) dx = dx; 
             else {dx = -dx};   
     }   
   }            
+  
   if(y + dy > canvas.height - ballRadius){         
     loseLife();                                            
-    return;                                                
-  }                                                                                                                         
+    return;                                                           // 碰到地板扣命後，立刻結束 play() 函式，不再往下跑                            
+  } 
 
-  if (size='large') scale_paddle = 1; else  {scale_paddle = 0.65};        
-  if(rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 5 * scale_paddle;        /* 若按右鍵，球拍右移。 */
-  else if(leftPressed && paddleX > 0) paddleX -= 5 * scale_paddle;                             /* 若按左鍵，球拍左移。 */
-
-  x = x + dx;                                                   
-  y = y + dy;                                                       
+  if (size =='large') current_scale = original_scale; else  {current_scale = small_scale};    
+  if(rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 5 * current_scale;        /* 若按右鍵，球拍右移。 */
+  else if(leftPressed && paddleX > 0) paddleX -= 5 * current_scale;                             /* 若按左鍵，球拍左移。 */
 
   if(gameRunning) requestAnimationFrame(play);                   /* 若遊戲未結束，重複執行 draw（每秒約 60 次）。 */
 }                                                                /* 結束 draw 函式。 */
@@ -347,7 +369,9 @@ function drawBricks() {                                           /* 定義繪�
         ctx.fillStyle = grad;                                    /* 設定填充顏色。 */
         ctx.strokeStyle = "#b32d00";                             /* 設定邊框顏色。 */
         ctx.beginPath();                                         /* 開始畫圖路徑。 */
-        ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 5*scale);   /* 繪製圓角矩形磚塊。 */
+
+        if (size =='large') current_scale = original_scale; else  {current_scale = small_scale};            
+        ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 5*current_scale);   /* 繪製圓角矩形磚塊。 */
         ctx.fill();                                              /* 填滿顏色。 */
         ctx.stroke();                                            /* 畫邊框。 */
       }                                                          /* 結束 if。 */
@@ -374,7 +398,9 @@ function drawPaddle() {                                          /* 定義繪製
   ctx.fillStyle = grad;                                          /* 設定顏色。 */
   ctx.beginPath();                                               /* 開始繪圖。 */
   // ctx.roundRect(paddleX, canvas.height-paddleHeight-2*scale, paddleWidth, paddleHeight, 6*scale);    /* 畫出球拍矩形。6 * scale：矩形圓角半徑。數值由基礎圓角 6 乘上畫面縮放比例 scale */
-  ctx.roundRect(paddleX, canvas.height-paddleHeight-2*scale, paddleWidth, paddleHeight, 6*scale); 
+  
+  if (size =='large') current_scale = original_scale; else  {current_scale = small_scale};   
+  ctx.roundRect(paddleX, canvas.height-paddleHeight-2*current_scale, paddleWidth, paddleHeight, 6*current_scale); 
   ctx.fill();                                                    /* 填滿球拍顏色。 */
   ctx.strokeStyle="#002244";                                     /* 球拍邊框色。 */
   ctx.stroke();                                                  /* 畫出邊框。 */
@@ -406,20 +432,24 @@ function loseLife() {                                            /* 定義扣命
     // 暫停一秒再重新發球
     ballActive = false;                                          /* 暫停球。 */
     x = canvas.width / 2;                                        /* 重置球位置。 */
-    y = canvas.height - 30*scale;                                /* 重置球 Y */
+    if (size =='large') current_scale = original_scale; else  {current_scale = small_scale};   
+    y = canvas.height - 30*current_scale;                                /* 重置球 Y */
     // dx = 3 * scale;                                              /* 重置球的水平移動速度。 */
     // dy = -3 * scale;                                             /* 重置球的垂直移動速度。 */
-    if (size='large') {dx = 3; dy = -3} else {dx = 3 * 0.65; dy = -3 * 0.65}; 
+    if (size =='large') {dx = 3; dy = -3} else {dx = 3 * small_scale; dy = -3 * small_scale}; 
 
     paddleX = (canvas.width - paddleWidth) / 2;                  /* 將接球的擋板 (paddle) 位置重置到畫面正中央。 */
     setTimeout(()=>{ ballActive = true; play(); }, 1250);        /* 設定一個 1000 毫秒（1 秒）的計時器。時間到後，將 ballActive 設回 true（恢復球的移動），並呼叫 draw() 重新繪製畫面以開始新的一局。 */
   } else {                                                       /* 如果生命數小於或等於 0（即扣完最後一條命）。 */
     gameRunning = false;                                         /* 將遊戲執行狀態設為關閉，停止遊戲主循環。 */
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      if (size='large') ctx.font = '4vh Arial'; else  {ctx.font = '2.6vh Arial'};  
-      // ctx.font = '4vh Arial';  
-      ctx.fillStyle = '#333333';
-      ctx.fillText("💥 遊戲結束！分數：" + score, canvas.width/10, canvas.height/2);  
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if (size =='large') ctx.font = '4vh Arial'; else  {ctx.font = '3vh Arial'};  
+    // ctx.font = '4vh Arial';  
+    ctx.fillStyle = '#333333';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("💥 遊戲結束！分數：" + score, canvas.width/2, canvas.height/2);  
+    win_status = false;
     // alert("💥 遊戲結束！分數：" + score);                         /* 跳出一個彈跳視窗，顯示遊戲結束訊息與玩家的最終得分 (score)。 */
   }                                                              /*  結束else。 */ 
 }                                                                /*  結束函式。 */ 
@@ -491,6 +521,7 @@ pause.addEventListener("click", ()=>{
 });         
 // --- "重新開始按鈕"點擊監聽 ---
 restartBtn.addEventListener("click", ()=>{                             /* 監聽重新開始按鈕 (restartBtn) 的「點擊」動作。 */
+  win_status = false;
   initialize();                                                          /* 呼叫遊戲初始化函式，重置分數、生命、磚塊陣列與球的位置。 */
   play();                                                              /* 呼叫繪製函式，重新啟動遊戲的畫面渲染與主循環。 */
 });                                                                  
