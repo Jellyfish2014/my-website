@@ -138,7 +138,7 @@ let bricks = [];
 let rightPressed = false;                                      
 let leftPressed = false;                                       
 const original_scale = 1;     
-const small_scale = 0.65;                                          
+const small_scale = 0.42;                                          
 let gameRunning = true;                                        
 let ballActive = true;                                         
 let isDragging = false;                                        
@@ -167,7 +167,6 @@ function  initialize() {
 
   } else {  
     size = 'small'
-    // scale = 0.65; 
     canvas.height = heightin_large * small_scale;                                            
     canvas.width = widthin_large * small_scale;     
     x = canvas.width / 2;                                           
@@ -183,7 +182,6 @@ function  initialize() {
     paddleWidth = original_paddleWidth * small_scale;                                       
     paddleHeight = original_paddleHeight * small_scale;   
     paddleX = (canvas.width - paddleWidth) / 2;     
-
     }                                     
                       
   score = 0;                                                      
@@ -226,7 +224,7 @@ function resizeCanvas() {
       // size = 'large' 
 
     } else {  
-        // scale = 0.65
+        // scale = 0.5
         canvas.width = widthin_large * small_scale;        
         canvas.height = heightin_large * small_scale;          
         x = x* small_scale;                                   
